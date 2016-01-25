@@ -1,8 +1,20 @@
-# sac
 Software to better organize Student Academic Conference @ Augustana
 ===
-php 5.6.14
+In order to have the environment up and running, install the following packages:
 
-MySQL 5.5.46
+* php 5.6.14
 
-Laravel 5.2
+* MySQL 5.5.46
+
+* Laravel 5.2
+
+If bootstrap is not working (run the server and check the home page), install it
+by running:
+
+  `npm install --global gulp`
+
+  `npm install`
+
+Compile the scss files into css running:
+
+  `gulp`
