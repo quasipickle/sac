@@ -1,9 +1,9 @@
-@extends("app")
-
+@extends('layouts.base')
 
 @section("content")
 
 	<h1> Create a New Account </h1>
+
 	<form class="" action="index.html" method="post">
 		<div class="input-group">
 			<label for="username">username:</label>
@@ -31,6 +31,5 @@
 		</div>
 
 	</form>
-
 
 @endsection
