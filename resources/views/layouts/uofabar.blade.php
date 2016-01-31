@@ -2,9 +2,11 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
-        <img alt="Augustana" class="uofalogo" >
+        <img alt="Augustana" class="uofatext" >
       </a>
     </div>
-    <p class="navbar-text navbar-right">UofA Links</p>
+    <p class="navbar-text navbar-right">
+      <span class="uofatext">UofA Links</span>
+    </p>
   </div>
 </nav>
