@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('basePages.sac')
 
 @section("content")
 

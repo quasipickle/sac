@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class StaticPagesController extends Controller
 {
-    public function create(){
-        return view('users.signUp');
+    public function home(){
+      return view('static.home');
     }
 }

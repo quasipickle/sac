@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default uofa">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <img alt="Augustana" class="uofatext" >
       </a>
     </div>
