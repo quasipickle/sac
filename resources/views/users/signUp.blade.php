@@ -3,33 +3,46 @@
 @section("content")
 
 	<h1> Create a New Account </h1>
+				{!! Form::open()!!}
+					<div class='row'>
+						<fieldset class="col-md-8 col-md-offset-2 form-group">
+							{!! Form::label('username', 'Username') !!}
+							{!! Form::text('username', null, ['class' => 'form-control']) !!}
+						</fieldset>
+					</div>
 
-	<form class="" action="index.html" method="post">
-		<div class="input-group">
-			<label for="username">username:</label>
-			<input type="text" name="username" class="form-control" id="username" placeholder="username" aria-describedby="basic-addon1">
-		</div>
+					<div class='row'>
+						<fieldset class="col-md-8 col-md-offset-2 form-group">
+							{!! Form::label('name', 'Full Name') !!}
+							{!! Form::text('name', null, ['class' => 'form-control']) !!}
+						</fieldset>
+					</div>
 
-		<div class="input-group">
-			<label for="Full Name">Full Name:</label>
-			<input type="text" name="Full Name" class="form-control" id="Full Name" placeholder="Full Name" aria-describedby="basic-addon1">
-		</div>
+					<div class='row'>
+						<fieldset class="col-md-8 col-md-offset-2 form-group">
+							{!! Form::label('email', 'Email') !!}
+							{!! Form::text('email', null, ['class' => 'form-control']) !!}
+						</fieldset>
+					</div>
 
-		<div class="input-group">
-			<label for="e-mail">e-mail:</label>
-			<input type="text" name="e-mail" class="form-control" id="e-mail" placeholder="e-mail" aria-describedby="basic-addon1">
-		</div>
+					<div class='row'>
+						<fieldset class="col-md-8 col-md-offset-2 form-group">
+							{!! Form::label('passowrd', 'Password') !!}
+							{!! Form::password('password', ['class' => 'form-control']) !!}
+						</fieldset>
+					</div>
 
-		<div class="input-group">
-			<label for="password">password:</label>
-			<input type="password" name="password" class="form-control" id="password" placeholder="password" aria-describedby="basic-addon1">
-		</div>
+					<div class='row'>
+						<fieldset class="col-md-8 col-md-offset-2 form-group">
+							{!! Form::label('passowrd_confirm', 'Confirm Password') !!}
+							{!! Form::password('password_confirm', ['class' => 'form-control']) !!}
+						</fieldset>
+					</div>
+				<br>
+					<fieldset class="col-md-8 form-group pull-right">
+						{!! Form::submit('Create New Account',['class' => 'btn btn-primary'])!!}
+					</fieldset>
 
-		<div class="input-group">
-			<label for="Confirm password">Confirm password:</label>
-			<input type="password" name="password" class="form-control" id="Confirm password" placeholder="password" aria-describedby="basic-addon1">
-		</div>
-
-	</form>
-
-@endsection
+		{!! Form::close()!!}
+	</div>
+@stop
