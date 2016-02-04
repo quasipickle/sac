@@ -12,12 +12,13 @@
   </head>
 
   <body>
-    @include('layouts.uofabar')
+    @include('basePages.uofabar')
 
     <div class="container-fluid">
       @yield('content')
     </div> <!-- /container -->
 
+    @include('basePages.uofafooter')
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
   </body>
