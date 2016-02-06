@@ -2,35 +2,10 @@
 # This file contains all the functionality for importing course descriptions from IMS
 
 
-#
-#
-# Configuration
-#
-#
-
-
 # Server to query
 $host = 'ldap://directory.srv.ualberta.ca';
 $conn = ldap_connect($host);
 ldap_bind($conn);//binding anonymously
-
-
-
-# objects we want to retrieve
-$filter = "(facultycode=AU)";
-
-# Data we want
-# 'subject' is basically the discipline (ie: AUPOL)
-# 'catalog' is the number (ie: 104)
-# 'asstring' is the course name (ie: AUPOL 104)
-$attributes =  array('asstring', 'subject', 'catalog');
-
-
-#
-#
-# Work - shouldn't need to mess around below this point
-#
-#
 
 
 
@@ -42,28 +17,44 @@ $term = getRange($conn, "Winter");
 
 // only continue if terms were found.  No terms means no new file generation
 if($term){
-	$all_courses = array();
+	$term_context = "term={$term},ou=calendar,dc=ualberta,dc=ca";
 
-	
-		# Context to search in.  {term} will be replaced
-		$context = "term={term},ou=calendar,dc=ualberta,dc=ca";
-		$term_context = str_replace('{term}',$term,$context);
+	# objects we want to retrieve
+	$filter = "(facultycode=AU)";
 
-		#
-		# Note on searching:  An alternative method would be to do a recursive ldap_search() on the context "ou=calendar,dc=ualberta,dc=ca
-		# However, this searches all terms & times out.  By being more specific with the search context, and using the non-recursive ldap_list(),
-		# we greatly cut down on query time
-		#
+	# Data we want
+	# 'subject' is basically the discipline (ie: AUPOL)
+	# 'catalog' is the number (ie: 104)
+	# 'asstring' is the course name (ie: AUPOL 104)
+	$attributes =  array('asstring', 'subject', 'catalog');
 
-		# Some contexts might not exist yet in IMS, which throws an error
-		$results = @ldap_list($conn,$term_context,$filter,$attributes);
-		if($results)
-		{
-			$entries = ldap_get_entries($conn,$results);
-  			print_r($entries);
-			# remove first "count" element
-			array_shift($entries);
-		}
+	# Some contexts might not exist yet in IMS, which throws an error
+	$results = @ldap_list($conn,$term_context,$filter,$attributes);
+
+	if($results)
+	{
+		$entries = ldap_get_entries($conn,$results);
+			print_r($entries);
+		# remove first "count" element
+		array_shift($entries);
+	}
+
+
+
+	$class_context = "course=096036,term={$term},ou=calendar,dc=ualberta,dc=ca";
+	$attributes = ['class', 'instructorUid', 'asString'];
+	# Some contexts might not exist yet in IMS, which throws an error
+	$results = @ldap_list($conn,$class_context, "class=*",$attributes);
+
+	print("***************");
+
+	if($results)
+	{
+		$entries = ldap_get_entries($conn,$results);
+		print_r($entries);
+		# remove first "count" element
+		array_shift($entries);
+	}
 	
 }
 
