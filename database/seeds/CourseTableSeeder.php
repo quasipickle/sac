@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Course;
 
 class CourseTableSeeder extends Seeder
 {
@@ -20,8 +21,15 @@ class CourseTableSeeder extends Seeder
 		$courses = $this->getCourses();
 		foreach ($courses as $course) {
 			$id = $course['asstring'][0];
-			// $name = $course
-			print($id."\n");
+			$description = $course['coursetitle'][0];
+			$subject = $course['subjecttitle'][0];
+			$subject = str_replace('Augustana Faculty - ', '', $subject);
+			$attributes = ['id' => $id, 'description' => $description, 'subject' => $subject];
+			try{
+				Course::create($attributes);
+			}catch(Exception $e){
+				print($id." already exists.\n");
+			}
 		}
 	}
 
@@ -71,10 +79,10 @@ class CourseTableSeeder extends Seeder
 		$year = date('Y',$now);
 		$month = date('m',$now);
 
+		$term_name = "Fall";
 		if($month < 4) //If this happens before April, gets the Winter term
 			$term_name = "Winter";
-		else
-			$term_name = "Fall";
+		
 
 		$termtitle = $term_name.'*'.$year;
 
@@ -83,8 +91,10 @@ class CourseTableSeeder extends Seeder
 		$attributes = ['term'];
 		
 		$entries = $this->getResults($context, $filter, $attributes);
-
-		return $entries[0]['term'][0];
+		if($entries)
+			return $entries[0]['term'][0];
+		else 
+			return false;
 
 	}
 
