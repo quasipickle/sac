@@ -27,8 +27,8 @@ class AddForeignKeysToPresentationsTable extends Migration
     public function down()
     {
         Schema::table('presentations', function (Blueprint $table) {
-            $table-dropForeign('presentations_course_foreign');
-            $table-dropForeign('presentations_type_foreign');
+            $table->dropForeign('presentations_course_foreign');
+            $table->dropForeign('presentations_type_foreign');
         });
 
     }

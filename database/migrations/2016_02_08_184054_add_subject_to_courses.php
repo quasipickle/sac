@@ -25,7 +25,7 @@ class AddSubjectToCourses extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->dropColumns('subject');
+            $table->dropColumn('subject');
         });
     }
 }

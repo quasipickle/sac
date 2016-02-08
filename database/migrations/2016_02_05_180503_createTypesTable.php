@@ -26,6 +26,6 @@ class CreateTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('type');
+        Schema::drop('types');
     }
 }
