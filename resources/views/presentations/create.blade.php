@@ -43,7 +43,11 @@
 					<label class="col-md-4 control-label">Course</label>
 
 					<div class="col-md-6">
-						<select type="text" class="form-control" name="course" value="{{ old('course') }}"></select>
+						<select type="text" class="form-control" name="course" value="{{ old('course') }}">
+							@foreach($courses as $course)
+								<option value="{{ $course->id }}"> {{ $course->description }}</option>
+							@endforeach
+						</select>
 
 						@if ($errors->has('course'))
 							<span class="help-block">
