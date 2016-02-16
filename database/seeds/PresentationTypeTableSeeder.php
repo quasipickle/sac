@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Type;
+use App\PresentationType;
 
-class TypeTableSeeder extends Seeder
+class PresentationTypeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,10 +12,10 @@ class TypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $types = ["Paper", "Poster", "Art", "Music", "Drama"];
-        foreach($types as $type){
+        $presentation_types = ["Paper", "Poster", "Art", "Music", "Drama"];
+        foreach($presentation_types as $type){
             try{
-				Type::create(['description' => $type]);
+				PresentationType::create(['description' => $type]);
 			}
 			catch(Exception $e){
 				print($description." already exists.\n");
