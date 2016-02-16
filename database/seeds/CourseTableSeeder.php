@@ -20,15 +20,15 @@ class CourseTableSeeder extends Seeder
 	private function parseCourses(){
 		$courses = $this->getCourses();
 		foreach ($courses as $course) {
-			$id = $course['asstring'][0];
+			$code = $course['asstring'][0];
 			$description = $course['coursetitle'][0];
 			$subject = $course['subjecttitle'][0];
 			$subject = str_replace('Augustana Faculty - ', '', $subject);
-			$attributes = ['id' => $id, 'description' => $description, 'subject' => $subject];
+			$attributes = ['code' => $code, 'description' => $description, 'subject' => $subject];
 			try{
 				Course::create($attributes);
 			}catch(Exception $e){
-				print($id." already exists.\n");
+				print($code." already exists.\n");
 			}
 		}
 	}
