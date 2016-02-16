@@ -7,10 +7,12 @@
     </div>
     <p class="navbar-text navbar-right">
       @if(Auth::check())
-        <a href="{!! url('/logout') !!}">
-          <span class="uofatext">
+        <a class="btn btn-default" href="{!! url('/presentation/new') !!}">
+            Add Presentation
+        </a>
+
+        <a class="btn btn-default" href="{!! url('/logout') !!}">
             Log out
-          </span>
         </a>
       @else
           <span class="uofatext">
