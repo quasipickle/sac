@@ -41,9 +41,11 @@ class PresentationsController extends Controller
      */
     public function create()
     {
+        $presentation = new Presentation();
         $courses = Course::all();
         $presentation_types = PresentationType::all();
-        return view('presentations.create', compact('courses', 'presentation_types'));
+        return view('presentations.create', 
+            compact('courses', 'presentation_types', 'presentation'));
     }
 
     /**
@@ -62,6 +64,7 @@ class PresentationsController extends Controller
             return back()->withInput();
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -73,7 +76,8 @@ class PresentationsController extends Controller
         $presentation = Presentation::findOrFail($id);
         $courses = Course::all();
         $presentation_types = PresentationType::all();
-        return view('presentations.edit', compact('presentation','courses', 'presentation_types'));
+        return view('presentations.edit', 
+            compact('presentation','courses', 'presentation_types'));
     }
 
     /**
@@ -85,7 +89,10 @@ class PresentationsController extends Controller
      */
     public function update(PresentationRequest $request, $id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        $presentation->update($request->all());
+        print($presentation);
+        return redirect()->route('home');
     }
 
     /**

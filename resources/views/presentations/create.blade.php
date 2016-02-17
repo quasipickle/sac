@@ -16,7 +16,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<form class="form-horizontal" role="form" method="POST" 
 			action="{{ route('presentation.store') }}">
-				@include('presentations._form', ['button_text' => 'Save'])
+				@include('presentations._form')
 			</form>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 @extends('basePages.sac')
 
 @section('title')
-	Add Presentation
+	Edit Presentation
 @stop
 
 @section('content')
@@ -11,12 +11,12 @@
 			Edit Presentation
 		</h2>
 	</div>
-NOT DISPLAYING DATABASE INFO!
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<form class="form-horizontal" role="form" method="POST" 
-			action="{{ route('presentation.updatea') }}">
-				@include('presentations._form', ['button_text' => 'Save'])
+			action="{{ route('presentation.update', $presentation) }}">
+				{!! method_field('PATCH') !!}
+				@include('presentations._form')
 			</form>
 		</div>
 	</div>
