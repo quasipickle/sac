@@ -1,6 +1,6 @@
 <?php
 Route::group(['middleware' => 'web'], function () {
-	Route::get('/', 'StaticPagesController@home');
+	Route::get('/', 'StaticPagesController@home')->name('home');
     Route::auth();
-	Route::get('/presentation/new', 'PresentationsController@create');
+	Route::resource('presentation', 'PresentationsController');
 });
