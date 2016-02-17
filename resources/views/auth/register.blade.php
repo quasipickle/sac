@@ -83,8 +83,8 @@
                             <i class="fa fa-btn fa-user"></i>Register
                         </button>
                     </div>
-                  </form>
-              </div>
+                </div>
+            </form>
           </div>
       </div>
   </div>

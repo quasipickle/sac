@@ -7,7 +7,7 @@
     </div>
     <p class="navbar-text navbar-right">
       @if(Auth::check())
-        <a class="btn btn-default" href="{!! url('/presentation/new') !!}">
+        <a class="btn btn-default" href="{!! route('presentation.create') !!}">
             Add Presentation
         </a>
 
