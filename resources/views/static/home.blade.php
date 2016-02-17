@@ -1,7 +1,11 @@
 @extends('basePages.sac')
 
 @section('content')
-  <div class="jumbotron">
-    <h1>SAC Home Page</h1>
-  </div>
+	@if(Auth::check())
+		@include('user.home')
+	@else
+		<div class="jumbotron">
+			<h1>SAC Home Page</h1>
+		</div>
+	@endif
 @endsection
