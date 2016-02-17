@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Presentation extends Model
 {
-	 protected $guarded = ['id', 'owner'];
+    protected $guarded = ['id', 'owner'];
 
     public function course(){
-      return $this->belongsTo("App\Course");
+        return $this->belongsTo("App\Course");
     }
 
     public function type(){
-    	return $this->hasOne("App\PresentationType");
+        return $this->hasOne("App\PresentationType");
     }
 
     public function owner(){
-    	return $this->belongsTo("App\User");
+        return $this->belongsTo("App\User", "owner");
     }
 }

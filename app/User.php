@@ -25,6 +25,6 @@ class User extends Authenticatable
     ];
 
     public function presentations(){
-        return $this->hasMany("App\Presentation");
+        return $this->hasMany("App\Presentation", "owner");
     }
 }
