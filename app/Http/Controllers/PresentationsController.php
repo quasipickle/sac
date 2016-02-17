@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use Auth;
+
+use App\Http\Requests\PresentationRequest;
+
 use App\Course;
+use App\Presentation;
 use App\PresentationType;
 
 class PresentationsController extends Controller
@@ -25,7 +30,8 @@ class PresentationsController extends Controller
      */
     public function index()
     {
-        
+        //TODO: Change this too
+        return view('static.home');
     }
 
     /**
@@ -43,13 +49,17 @@ class PresentationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request\PresentationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PresentationRequest $request)
     {
-        print($request);
-        // return "Fail";
+        $presentation = new Presentation($request->all());
+        $presentation->owner = Auth::user()->id;
+        if($presentation->save())
+            return redirect()->route('home')->with('message', 'Success');
+        else
+            return back()->withInput();
     }
 
     /**
@@ -77,11 +87,11 @@ class PresentationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request\PresentationRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PresentationRequest $request, $id)
     {
         //
     }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Presentation extends Model
 {
+	 protected $guarded = ['id', 'owner'];
+
     public function course(){
       return $this->belongsTo("App\Course");
     }
