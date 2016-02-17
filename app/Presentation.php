@@ -9,4 +9,8 @@ class Presentation extends Model
     public function course(){
       return $this->belongsTo("App\Course");
     }
+
+    public function type(){
+    	return $this->hasOne("App\PresentationType");
+    }
 }
