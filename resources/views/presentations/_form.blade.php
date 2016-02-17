@@ -108,12 +108,18 @@
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-4">
+		<a class="btn btn-default" href="{{ route('home') }}">
+			<i class="fa fa-arrow-left"></i>
+			Cancel
+		</a>
 		<button type="submit" class="btn btn-primary">
-			<i class="fa fa-btn fa-user"></i>{{$button_text}}
+			<i class="fa fa-floppy-o"></i> {{$button_text}}
 		</button>
 
-		<a class="btn btn-default disabled" disabled href="">Submit</a>
+		<a class="btn btn-default disabled" disabled href="">
+			<i class="fa fa-paper-plane"></i>
+			Submit
+		</a>
 
-		<a class="btn btn-default" href="{{ route('home') }}">Cancel</a>
 	</div>
 </div>
