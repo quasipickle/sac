@@ -18,7 +18,7 @@
 			<tr class="row">
 				<td>
 					<h3>
-						<a href="{{ route('presentation.show', $p['id'])}}">
+						<a href="{{ route('presentation.edit', $p['id'])}}">
 							{{$p['title']}}
 						</a>
 					</h3>

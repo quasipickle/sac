@@ -63,17 +63,6 @@ class PresentationsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -81,7 +70,10 @@ class PresentationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        $courses = Course::all();
+        $presentation_types = PresentationType::all();
+        return view('presentations.edit', compact('presentation','courses', 'presentation_types'));
     }
 
     /**
