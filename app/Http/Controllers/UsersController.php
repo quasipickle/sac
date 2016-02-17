@@ -26,7 +26,8 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($id == Auth::user()->id){
-            $presentations = $user->presentations->toArray();
+            $presentations = $user->presentations()
+                ->orderBy('updated_at','desc')->get()->toArray();
             return view('user.show', compact('presentations'));
         } else {
             return redirect()->route('home')
