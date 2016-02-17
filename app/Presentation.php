@@ -13,4 +13,8 @@ class Presentation extends Model
     public function type(){
     	return $this->hasOne("App\PresentationType");
     }
+
+    public function owner(){
+    	return $this->belongsTo("App\User");
+    }
 }
