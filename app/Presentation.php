@@ -8,6 +8,8 @@ class Presentation extends Model
 {
     protected $guarded = ['id', 'owner'];
 
+    protected $dates = ['submitted_at', 'approved_at'];
+
     public function course(){
         return $this->belongsTo("App\Course", "course");
     }
