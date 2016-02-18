@@ -73,6 +73,7 @@
 		<select type="text" class="form-control" name="type"
 			>
 			<option value="">Select a presentation type</option>
+			<option value="" disabled>---------</option>
 			@foreach($presentation_types as $type)
 				<option value="{{ $type->id }}"> {{ $type->description }}</option>
 			@endforeach

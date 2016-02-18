@@ -91,7 +91,6 @@ class PresentationsController extends Controller
     {
         $presentation = Presentation::findOrFail($id);
         $presentation->update($request->all());
-        print($presentation);
         return redirect()->route('home');
     }
 
