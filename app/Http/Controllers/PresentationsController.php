@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Carbon\Carbon;
+
 use Auth;
 
 use App\Http\Requests\PresentationRequest;
@@ -83,10 +85,16 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function submit(PresentationRequest $request, $id = null)
+    public function submit($id)
     {
         $presentation = Presentation::findOrFail($id);
-        $presentation->submit = true;
+        if($presentation->owner == Auth::user()->id){
+            $presentation->submitted = true;
+            $presentation->submitted_at = Carbon::now();
+            $presentation->approved = false;
+            $presentation->approved_at = null;
+            $presentation->save();
+        }
         return redirect()->route('home');
     }
 
@@ -100,7 +108,13 @@ class PresentationsController extends Controller
     public function update(PresentationRequest $request, $id)
     {
         $presentation = Presentation::findOrFail($id);
-        $presentation->update($request->all());
+        if($presentation->owner == Auth::user()->id){
+            $presentation->submitted = false;
+            $presentation->submitted_at = null;
+            $presentation->approved = false;
+            $presentation->approved_at = null;
+            $presentation->update($request->all());
+        }
         return redirect()->route('home');
     }
 

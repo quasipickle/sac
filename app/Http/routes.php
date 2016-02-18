@@ -2,8 +2,10 @@
 Route::group(['middleware' => 'web'], function () {
 	Route::get('/', 'StaticPagesController@home')->name('home');
     Route::auth();
+	Route::patch('presentation/{id}/submit', 'PresentationsController@submit')
+		->name('submit_presentation');
 	Route::resource('presentation', 'PresentationsController',
 		['except' => 'show']);
-	Route::post('/presentation/{id}/submit', 'PresentationsController@submit')
-	Route::resource('user', 'UsersController');
+	Route::resource('user', 'UsersController', ['only' => 'show']);
+
 });
