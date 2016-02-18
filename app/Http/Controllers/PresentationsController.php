@@ -42,11 +42,10 @@ class PresentationsController extends Controller
     public function create()
     {
         $presentation = new Presentation();
-        $courses = Course::all();
-        $presentation_types = PresentationType::all();
-        return view('presentations.create', 
-            compact('courses', 'presentation_types', 'presentation'));
+        return $this->preapare_form($presentation, 'create');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -74,10 +73,21 @@ class PresentationsController extends Controller
     public function edit($id)
     {
         $presentation = Presentation::findOrFail($id);
-        $courses = Course::all();
-        $presentation_types = PresentationType::all();
-        return view('presentations.edit', 
-            compact('presentation','courses', 'presentation_types'));
+        return $this->preapare_form($presentation, 'edit');
+    }
+
+    /**
+     * Submit the current presentation
+     *
+     * @param  \Illuminate\Http\Request\PresentationRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function submit(PresentationRequest $request, $id = null)
+    {
+        $presentation = Presentation::findOrFail($id);
+        $presentation->submit = true;
+        return redirect()->route('home');
     }
 
     /**
@@ -103,5 +113,13 @@ class PresentationsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function preapare_form($presentation, $action)
+    {
+        $courses = Course::all();
+        $presentation_types = PresentationType::all();
+        return view('presentations.'.$action,
+            compact('courses', 'presentation_types', 'presentation'));
     }
 }
