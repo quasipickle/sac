@@ -8,6 +8,8 @@
     content must come *after* these tags -->
 
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <title> SAC - @yield('title')</title>
   </head>
 
@@ -19,7 +21,6 @@
     </div> <!-- /container -->
 
     @include('basePages.uofafooter')
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
+    <script src="{{ asset('js/all.js') }}"></script>
   </body>
 </html>
