@@ -5,7 +5,7 @@
 
 	<div class="col-md-6">
 		<input type="text" class="form-control" name="professor_name"
-			value="{{ $presentation['professor_name'] }}">
+			value="{{ old('professor_name', $presentation['professor_name']) }}">
 
 		@if ($errors->has('professor_name'))
 			<span class="help-block">
@@ -20,7 +20,7 @@
 
 	<div class="col-md-6">
 		<input type="text" class="form-control" name="student_name"
-			value="{{ $presentation['student_name'] }}">
+			value="{{ old('student_name', $presentation['student_name']) }}">
 
 		@if ($errors->has('student_name'))
 			<span class="help-block">
@@ -34,12 +34,14 @@
 	<label class="col-md-3 control-label">Course</label>
 
 	<div class="col-md-6">
-		<select type="text" class="form-control" name="course"
-			>
-			<option value="">Select a course</option>
+		<select type="text" class="form-control" name="course">
+			<option value=""> Select a course </option>
+			<option value="" disabled >---------</option>
 
 			@foreach($courses as $course)
-				<option value="{{ $course->code }}">{{ $course->description }}</option>
+				<option value="{{ $course->code }}" 
+					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
+				{{ $course->description }}</option>
 			@endforeach
 		</select>
 
@@ -56,7 +58,7 @@
 
 	<div class="col-md-6">
 		<input type="text" class="form-control" name="title"
-			value="{{ $presentation['title'] }}">
+			value="{{ old('title', $presentation['title']) }}">
 
 		@if ($errors->has('title'))
 			<span class="help-block">
@@ -75,7 +77,9 @@
 			<option value="">Select a presentation type</option>
 			<option value="" disabled>---------</option>
 			@foreach($presentation_types as $type)
-				<option value="{{ $type->id }}"> {{ $type->description }}</option>
+				<option value="{{ $type->id }}"
+					{{old('type', $presentation['type']) == $type->id ? 'selected' : ''}}>
+				{{ $type->description }}</option>
 			@endforeach
 		</select>
 
@@ -92,7 +96,7 @@
 
 	<div class="col-md-6">
 		<textarea abstract="text" class="form-control" 
-			name="abstract">{{ $presentation['abstract'] }}</textarea>
+			name="abstract">{{ old('abstract', $presentation['abstract']) }}</textarea>
 
 		@if ($errors->has('abstract'))
 			<span class="help-block">
@@ -107,7 +111,7 @@
 
 	<div class="col-md-6">
 		<textarea special_notes="text" class="form-control" 
-			name="special_notes" >{{ $presentation['special_notes'] }}</textarea>
+			name="special_notes" >{{ old('special_notes', $presentation['special_notes']) }}</textarea>
 
 		@if ($errors->has('special_notes'))
 			<span class="help-block">
