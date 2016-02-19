@@ -40,7 +40,7 @@
 
 			@foreach($courses as $course)
 				<option value="{{ $course->code }}" 
-					{{old('course') == $course->code ? 'selected' : ''}}>
+					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
 				{{ $course->description }}</option>
 			@endforeach
 		</select>
@@ -78,7 +78,7 @@
 			<option value="" disabled>---------</option>
 			@foreach($presentation_types as $type)
 				<option value="{{ $type->id }}"
-					{{old('type') == $type->id ? 'selected' : ''}}>
+					{{old('type', $presentation['type']) == $type->id ? 'selected' : ''}}>
 				{{ $type->description }}</option>
 			@endforeach
 		</select>

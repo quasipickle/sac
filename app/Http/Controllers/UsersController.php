@@ -30,7 +30,8 @@ class UsersController extends Controller
         if($id == Auth::user()->id){
             $presentations = $user->presentations()->
                 orderBy('updated_at','desc')->get()->toArray();
-            $presentation_types = PresentationType::all();
+            $presentation_types = PresentationType::all()->toArray();
+            array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
             return view('user.show', compact('presentations', 'presentation_types'));
         } else {
             return redirect()->route('home')->
