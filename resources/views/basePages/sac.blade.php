@@ -18,7 +18,7 @@
 
     <div class="container-fluid">
       @yield('content')
-    </div> <!-- /container -->
+    </div>
 
     @include('basePages.uofafooter')
     <script src="{{ asset('js/all.js') }}"></script>
