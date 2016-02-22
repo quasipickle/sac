@@ -15,6 +15,15 @@
           </a>
         </p>
 
+        @if(Auth::user()->role == 'student' && Auth::User()->request_new_role == false)
+        <p class="navbar-text">
+          <a href="{!! route('new_role') !!}">
+            <span class="uofatext">
+              Request Professor Role
+            </span>
+          </a>
+        </p>
+        @endif
           <p class="navbar-text navbar-right">
             <a href="{!! url('/logout') !!}">
               <span class="uofatext">
@@ -26,10 +35,10 @@
       @else
         <p class="navbar-text navbar-right">
           <span class="uofatext">
-            You are not signed in. 
+            You are not signed in.
             <a class="uofatext" href="{!! url('/login') !!}">
               Login
-            </a> 
+            </a>
             or
             <a class="uofatext" href="{!! url('/register') !!}">
               Signup
