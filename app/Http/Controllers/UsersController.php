@@ -40,4 +40,15 @@ class UsersController extends Controller
 
     }
 
+    public function request_new_role(){
+      $user = Auth::user();
+      if($user->role == 'student'){
+        $user->request_new_role = true;
+        $user->save();
+
+      }//if
+
+      return redirect()->route('home')-> with('mesage', 'it has been sent');
+    }
+
 }
