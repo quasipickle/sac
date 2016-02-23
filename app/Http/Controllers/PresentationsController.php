@@ -65,6 +65,8 @@ class PresentationsController extends Controller
             return redirect()->route('home')->with('message', 'Success');
         else
             return back()->withInput();
+
+
     }
 
 
@@ -110,6 +112,7 @@ class PresentationsController extends Controller
     public function update(PresentationRequest $request, $id)
     {
         $presentation = Presentation::findOrFail($id);
+
         if($presentation->owner == Auth::user()->id){
             $presentation->submitted = false;
             $presentation->submitted_at = null;
