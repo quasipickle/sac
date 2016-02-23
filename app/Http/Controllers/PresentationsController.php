@@ -46,6 +46,13 @@ class PresentationsController extends Controller
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
+        $presentation->owner = Auth::user()->id;
+        $user = Auth::user();
+        if($user->is_student()){
+            $presentation->student_name = $user->name;
+        } else if($user->is_professor()){
+            $presentation->professor_name = $user->name;
+        }
         return $this->preapare_form($presentation, 'create');
     }
 
