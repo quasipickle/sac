@@ -41,7 +41,7 @@
 			@foreach($courses as $course)
 				<option value="{{ $course->code }}" 
 					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
-				{{ $course->description }}</option>
+				{{ $course->code." - ".$course->description }}</option>
 			@endforeach
 		</select>
 
