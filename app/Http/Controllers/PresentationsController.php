@@ -46,13 +46,7 @@ class PresentationsController extends Controller
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
-        $presentation->owner = Auth::user()->id;
-        $user = Auth::user();
-        if($user->is_student()){
-            $presentation->student_name = $user->name;
-        } else if($user->is_professor()){
-            $presentation->professor_name = $user->name;
-        }
+        $presentation = $this->setOwner($presentation);
         return $this->preapare_form($presentation, 'create');
     }
 
@@ -67,7 +61,7 @@ class PresentationsController extends Controller
     public function store(PresentationRequest $request)
     {
         $presentation = new Presentation($request->all());
-        $presentation->owner = Auth::user()->id;
+        $presentation = $this->setOwner($presentation);
         if($presentation->save())
             return redirect()->route('home')->with('message', 'Success');
         else
@@ -144,5 +138,18 @@ class PresentationsController extends Controller
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
+    }
+
+
+    private function setOwner($presentation){
+        $user = Auth::user();
+
+        if($user->is_student()){
+            $presentation->student_name = $user->name;
+        } else if($user->is_professor()){
+            $presentation->professor_name = $user->name;
+        }
+        $presentation->owner = $user->id;
+        return $presentation;
     }
 }
