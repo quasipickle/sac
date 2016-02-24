@@ -122,22 +122,20 @@
 	</div>
 </div>
 
+@if(Auth::user()->is_professor())
 <div class="form-group{{ $errors->has('our_nominee') ? ' has-error' : '' }}">
-	<div class="col-md-offset-3">
+	<div class="col-md-offset-3 col-md-6">
 		<label>Nominate this student for an OUR?</label>
 		<div class="radio">
 		<input type="radio" class="" name="our_nominee" id="yes"
-			value="true" {{ old('our_nominee', $presentation['our_nominee']) == true ? 'checked' : 'test'}}>
+			value="1" {{ old('our_nominee', $presentation['our_nominee']) == true ? 'checked' : 'test'}}>
 			<label class="">Yes</label>
 		</div>
 		<div class = "radio">
 		<input type="radio" class="" name="our_nominee" id="no"
-			value="false" {{ old('our_nominee', $presentation['our_nominee']) == false ? 'checked' : 'test2'}}>
+			value="0" {{ old('our_nominee', $presentation['our_nominee']) == false ? 'checked' : 'test2'}}>
 			<label class="">No</label>
 		</div>
-
-
-
 
 		@if ($errors->has('our_nominee'))
 			<span class="help-block">
@@ -146,9 +144,7 @@
 		@endif
 	</div>
 </div>
-
-
-
+@endif
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-6">
