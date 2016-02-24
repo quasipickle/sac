@@ -40,7 +40,7 @@
 			<option value="" disabled >---------</option>
 
 			@foreach($courses as $course)
-				<option value="{{ $course->code }}" 
+				<option value="{{ $course->code }}"
 					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
 				{{ $course->code." - ".$course->description }}</option>
 			@endforeach
@@ -96,7 +96,7 @@
 	<label class="col-md-3 control-label">Abstract</label>
 
 	<div class="col-md-6">
-		<textarea abstract="text" class="form-control" 
+		<textarea abstract="text" class="form-control"
 			name="abstract">{{ old('abstract', $presentation['abstract']) }}</textarea>
 
 		@if ($errors->has('abstract'))
@@ -111,7 +111,7 @@
 	<label class="col-md-3 control-label">Special Notes</label>
 
 	<div class="col-md-6">
-		<textarea special_notes="text" class="form-control" 
+		<textarea special_notes="text" class="form-control"
 			name="special_notes" >{{ old('special_notes', $presentation['special_notes']) }}</textarea>
 
 		@if ($errors->has('special_notes'))
@@ -121,6 +121,34 @@
 		@endif
 	</div>
 </div>
+
+<div class="form-group{{ $errors->has('our_nominee') ? ' has-error' : '' }}">
+	<div class="col-md-offset-3">
+		<label>Nominate this student for an OUR?</label>
+		<div class="radio">
+		<input type="radio" class="" name="our_nominee" id="yes"
+			value="true" {{ old('our_nominee', $presentation['our_nominee']) == true ? 'checked' : 'test'}}>
+			<label class="">Yes</label>
+		</div>
+		<div class = "radio">
+		<input type="radio" class="" name="our_nominee" id="no"
+			value="false" {{ old('our_nominee', $presentation['our_nominee']) == false ? 'checked' : 'test2'}}>
+			<label class="">No</label>
+		</div>
+
+
+
+
+		@if ($errors->has('our_nominee'))
+			<span class="help-block">
+				<strong>{{ $errors->first('our_nominee') }}</strong>
+			</span>
+		@endif
+	</div>
+</div>
+
+
+
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-6">
