@@ -3,6 +3,8 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/', 'StaticPagesController@home')->name('home');
 	Route::get('adminhome', 'AdminController@home')->name('adminhome');
 	Route::get('admin', 'AdminController@base');
+	Route::get('rooms', 'RoomsController@show')->name('show_rooms');
+	Route::get('add_rooms', 'RoomsController@create')->name('add_room');
 
 
 
