@@ -1,11 +1,11 @@
 {!! csrf_field() !!}
-
 <div class="form-group{{ $errors->has('professor_name') ? ' has-error' : '' }}">
 	<label class="col-md-3 control-label">Professor Name</label>
 
 	<div class="col-md-6">
 		<input type="text" class="form-control" name="professor_name"
-			value="{{ old('professor_name', $presentation['professor_name']) }}">
+			value="{{ old('professor_name', $presentation['professor_name']) }}"
+			{{ Auth::user()->is_professor() ? 'disabled' : '' }}>
 
 		@if ($errors->has('professor_name'))
 			<span class="help-block">
@@ -20,7 +20,8 @@
 
 	<div class="col-md-6">
 		<input type="text" class="form-control" name="student_name"
-			value="{{ old('student_name', $presentation['student_name']) }}">
+			value="{{ old('student_name', $presentation['student_name']) }}"
+			{{ Auth::user()->is_student() ? 'disabled' : '' }} >
 
 		@if ($errors->has('student_name'))
 			<span class="help-block">
@@ -39,9 +40,9 @@
 			<option value="" disabled >---------</option>
 
 			@foreach($courses as $course)
-				<option value="{{ $course->code }}" 
+				<option value="{{ $course->code }}"
 					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
-				{{ $course->description }}</option>
+				{{ $course->code." - ".$course->description }}</option>
 			@endforeach
 		</select>
 
@@ -95,7 +96,7 @@
 	<label class="col-md-3 control-label">Abstract</label>
 
 	<div class="col-md-6">
-		<textarea abstract="text" class="form-control" 
+		<textarea abstract="text" class="form-control"
 			name="abstract">{{ old('abstract', $presentation['abstract']) }}</textarea>
 
 		@if ($errors->has('abstract'))
@@ -110,7 +111,7 @@
 	<label class="col-md-3 control-label">Special Notes</label>
 
 	<div class="col-md-6">
-		<textarea special_notes="text" class="form-control" 
+		<textarea special_notes="text" class="form-control"
 			name="special_notes" >{{ old('special_notes', $presentation['special_notes']) }}</textarea>
 
 		@if ($errors->has('special_notes'))
@@ -120,6 +121,30 @@
 		@endif
 	</div>
 </div>
+
+@if(Auth::user()->is_professor())
+<div class="form-group{{ $errors->has('our_nominee') ? ' has-error' : '' }}">
+	<div class="col-md-offset-3 col-md-6">
+		<label>Nominate this student for an OUR?</label>
+		<div class="radio">
+		<input type="radio" class="" name="our_nominee" id="yes"
+			value="1" {{ old('our_nominee', $presentation['our_nominee']) == true ? 'checked' : 'test'}}>
+			<label class="">Yes</label>
+		</div>
+		<div class = "radio">
+		<input type="radio" class="" name="our_nominee" id="no"
+			value="0" {{ old('our_nominee', $presentation['our_nominee']) == false ? 'checked' : 'test2'}}>
+			<label class="">No</label>
+		</div>
+
+		@if ($errors->has('our_nominee'))
+			<span class="help-block">
+				<strong>{{ $errors->first('our_nominee') }}</strong>
+			</span>
+		@endif
+	</div>
+</div>
+@endif
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-6">

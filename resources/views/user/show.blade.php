@@ -10,6 +10,7 @@
 			<tr class="row">
 				<th class="col-lg-10 col-md-8 col-sm-10 text-center"></th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
+				<th class="col-lg-1 col-md-1 col-sm-1 text-center">OUR Nominee</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Type</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Submitted</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Approved</th>
@@ -32,6 +33,9 @@
 					@if($p['submitted_at'] < $p['updated_at'])
 						@include('user._submit_presentation', ['id' => $p['id']])
 					@endif
+				</td>
+				<td class="text-center">
+					{{ $p['our_nominee'] ? 'Yes' : 'No' }}
 				</td>
 				<td class="text-center">
 					{{ $presentation_types[$p['type']]['description'] }}
