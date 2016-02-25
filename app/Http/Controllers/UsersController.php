@@ -27,28 +27,28 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if($id == Auth::user()->id){
+        if(!$user->is_student()){
+            $presentations = App\Presentation::all()->toArray();
+        }elseif($id == $user->id){
             $presentations = $user->presentations()->
                 orderBy('updated_at','desc')->get()->toArray();
-            $presentation_types = PresentationType::all()->toArray();
-            array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
-            return view('user.show', compact('presentations', 'presentation_types'));
         } else {
             return redirect()->route('home')->
                 with('message', 'You are not allowed to see others profiles');
         }
+        $presentation_types = PresentationType::all()->toArray();
+        array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
+        return view('user.show', compact('presentations', 'presentation_types'));
 
     }
 
     public function request_new_role(){
-      $user = Auth::user();
-      if($user->role == 'student'){
-        $user->request_new_role = true;
-        $user->save();
-
-      }//if
-
-      return redirect()->route('home')-> with('mesage', 'it has been sent');
+        $user = Auth::user();
+        if($user->role == 'student'){
+            $user->request_new_role = true;
+            $user->save();
+        }
+        return redirect()->route('home')-> with('message', "Request has been sent! Wait for administratror's approval");
     }
 
 }
