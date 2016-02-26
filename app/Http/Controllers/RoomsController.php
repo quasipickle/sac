@@ -19,12 +19,12 @@ class RoomsController extends Controller
     }
 
     public function store(){
+       $rooms= Room::all();
        $input = Request::all();
        $room = new Room();
-      //  $room->code = $input['code'];
-      //  $room->description = $input['description'];
-      //  $room->save();
-      return $input;
-      //return view('dashboard.room');
+       $room->code = $input['code'];
+       $room->description = $input['description'];
+       $room->save();
+       return view('dashboard.room')->with('rooms', $rooms);
     }
 }

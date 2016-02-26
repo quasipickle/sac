@@ -5,7 +5,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('admin', 'AdminController@base');
 	Route::get('rooms', 'RoomsController@show')->name('show_rooms');
 	Route::get('add_rooms', 'RoomsController@create')->name('add_room');
-	Route::get('store_room', 'RoomsController@store')->name('store');
+	Route::post('store_room', 'RoomsController@store')->name('store');
 
 
 
