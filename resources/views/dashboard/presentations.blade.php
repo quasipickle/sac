@@ -1,6 +1,7 @@
 @extends('dashboard.adminbase')
 
 @section('text')
+<h1> Presentations </h1>
 <div class="table-responsive">
   <table class="table">
     <tr class="row">
