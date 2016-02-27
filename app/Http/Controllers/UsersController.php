@@ -39,18 +39,19 @@ class UsersController extends Controller
             return view('user.show', compact('presentations', 'presentation_types'));
         } else {
             flash()->error('You are not allowed to see others profiles!');
-            return redirect(route('user.show', $user->id))->with('message', 'teste 2');
+            return redirect(route('user.show', $user->id));
         }
 
     }
 
     public function request_new_role(){
         $user = Auth::user();
-        if($user->role == 'student'){
+        if($user->is_student()){
             $user->request_new_role = true;
             $user->save();
+            flash("Request has been sent! Wait for administratror's approval");
         }
-        return redirect()->route('home')-> with('message', "Request has been sent! Wait for administratror's approval");
+        return redirect(route('user.show', $user->id));
     }
 
 }

@@ -25,5 +25,9 @@
     @include('basePages.uofafooter')
 
     <script src="{{ asset('js/all.js') }}"></script>
+
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
   </body>
 </html>

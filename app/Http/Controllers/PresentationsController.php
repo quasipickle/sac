@@ -62,9 +62,10 @@ class PresentationsController extends Controller
     {
         $presentation = new Presentation($request->all());
         $presentation = $this->setOwner($presentation);
-        if($presentation->save())
-            return redirect()->route('home')->with('message', 'Success');
-        else
+        if($presentation->save()){
+            flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
+            return redirect()->route('user.show', Auth::user());
+        } else
             return back()->withInput();
     }
 
@@ -97,8 +98,9 @@ class PresentationsController extends Controller
             $presentation->approved = false;
             $presentation->approved_at = null;
             $presentation->save();
+            flash()->success("Presentation submitted with success!");
         }
-        return redirect()->route('home');
+        return redirect()->route('user.show', Auth::user());
     }
 
     /**
@@ -117,8 +119,10 @@ class PresentationsController extends Controller
             $presentation->approved = false;
             $presentation->approved_at = null;
             $presentation->update($request->all());
+            flash()->overlay("Don't forget to resubmit this update"
+                 ." to SAC coordinator", "Success!");
         }
-        return redirect()->route('home');
+        return redirect()->route('user.show', Auth::user());
     }
 
     /**
