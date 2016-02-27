@@ -26,7 +26,7 @@
           <div class="form-group">
               <div class="col-md-6 col-md-offset-4">
                   <button type="submit" class="btn btn-primary">
-                      <i class="fa fa-btn fa-user"></i>Add Room
+                      <i class="fa fa-plus-square"></i>Add Room
                   </button>
               </div>
           </div>
