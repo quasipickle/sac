@@ -62,11 +62,10 @@ class PresentationsController extends Controller
     {
         $presentation = new Presentation($request->all());
         $presentation = $this->setOwner($presentation);
-        if($presentation->save()){
-            flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
-            return redirect()->route('user.show', Auth::user());
-        } else
-            return back()->withInput();
+        $presentation->save();
+        flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
+        return redirect()->route('user.show', Auth::user());
+
     }
 
 
@@ -92,14 +91,15 @@ class PresentationsController extends Controller
     public function submit($id)
     {
         $presentation = Presentation::findOrFail($id);
-        if($presentation->owner == Auth::user()->id){
-            $presentation->submitted = true;
-            $presentation->submitted_at = Carbon::now();
-            $presentation->approved = false;
-            $presentation->approved_at = null;
-            $presentation->save();
-            flash()->success("Presentation submitted with success!");
-        }
+        $this->authorize('modify', $presentation);
+
+        $presentation->submitted = true;
+        $presentation->submitted_at = Carbon::now();
+        $presentation->approved = false;
+        $presentation->approved_at = null;
+        $presentation->save();
+        flash()->success("Presentation submitted with success!");
+
         return redirect()->route('user.show', Auth::user());
     }
 
@@ -113,15 +113,16 @@ class PresentationsController extends Controller
     public function update(PresentationRequest $request, $id)
     {
         $presentation = Presentation::findOrFail($id);
-        if($presentation->owner == Auth::user()->id){
-            $presentation->submitted = false;
-            $presentation->submitted_at = null;
-            $presentation->approved = false;
-            $presentation->approved_at = null;
-            $presentation->update($request->all());
-            flash()->overlay("Don't forget to resubmit this update"
-                 ." to SAC coordinator", "Success!");
-        }
+        $this->authorize('modify', $presentation);
+
+        $presentation->submitted = false;
+        $presentation->submitted_at = null;
+        $presentation->approved = false;
+        $presentation->approved_at = null;
+        $presentation->update($request->all());
+        flash()->overlay("Don't forget to resubmit this update"
+             ." to SAC coordinator", "Success!");
+
         return redirect()->route('user.show', Auth::user());
     }
 
@@ -134,10 +135,11 @@ class PresentationsController extends Controller
     public function destroy($id)
     {
         $presentation = Presentation::findOrFail($id);
-        if($presentation->owner == Auth::user()->id){
-            $presentation->delete();
-            flash()->success("Presentation deleted!");
-        }
+        $this->authorize('modify', $presentation);
+
+        $presentation->delete();
+        flash()->success("Presentation deleted!");
+
         return redirect()->route('user.show', Auth::user());
     }
 
