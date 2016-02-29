@@ -26,6 +26,8 @@
 
     <script src="{{ asset('js/all.js') }}"></script>
 
+    @yield('scripts')
+    
     <script>
         $('#flash-overlay-modal').modal();
     </script>

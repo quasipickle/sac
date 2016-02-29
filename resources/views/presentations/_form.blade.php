@@ -73,7 +73,7 @@
 	<label class="col-md-3 control-label">Type</label>
 
 	<div class="col-md-6">
-		<select type="text" class="form-control" name="type"
+		<select id="select-beast" type="text" class="form-control" name="type"
 			>
 			<option value="">Select a presentation type</option>
 			<option value="" disabled>---------</option>
