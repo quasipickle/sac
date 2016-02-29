@@ -7,6 +7,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('add_rooms', 'RoomsController@create')->name('add_room');
 	Route::post('store_room', 'RoomsController@store')->name('store');
 	Route::get('/admin/presentations', 'AdminController@view_presentations')->name('presentations');
+	Route::get('/admin/courses', 'AdminController@view_courses')->name('courses');
 
     Route::auth();
 	Route::patch('presentation/{id}/submit', 'PresentationsController@submit')
