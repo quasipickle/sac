@@ -133,7 +133,12 @@ class PresentationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        if($presentation->owner == Auth::user()->id){
+            $presentation->delete();
+            flash()->success("Presentation deleted!");
+        }
+        return redirect()->route('user.show', Auth::user());
     }
 
     private function preapare_form($presentation, $action)

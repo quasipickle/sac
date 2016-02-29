@@ -122,7 +122,7 @@
 	</div>
 </div>
 
-@if(Auth::user()->is_professor())
+@if(!Auth::user()->is_student())
 <div class="form-group{{ $errors->has('our_nominee') ? ' has-error' : '' }}">
 	<div class="col-md-offset-3 col-md-6">
 		<label>Nominate this student for an OUR?</label>
