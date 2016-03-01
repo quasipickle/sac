@@ -25,6 +25,7 @@ class RoomsController extends Controller
        $room->code = $input['code'];
        $room->description = $input['description'];
        $room->save();
-       return view('dashboard.room')->with('rooms', $rooms);
+       //return view('dashboard.room')->with('rooms', $rooms);
+       return redirect()->route('show_rooms');
     }
 }
