@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\PresentationType;
+use App\Presentation;
 
 class UsersController extends Controller
 {
@@ -29,7 +30,7 @@ class UsersController extends Controller
         $user = Auth::user();
         if($id == $user->id){
             if(!$user->is_student()){
-                $presentations = App\Presentation::all()->toArray();
+                $presentations = Presentation::all()->toArray();
             }else{
                 $presentations = $user->presentations()->
                     orderBy('updated_at','desc')->get()->toArray();
