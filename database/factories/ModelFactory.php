@@ -22,8 +22,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->defineAs(App\User::class, 'admin', function (Faker\Generator $faker) {
-	$user = $factory->raw(App\User::class);
+    $user = $factory->raw(App\User::class);
 
-	$user->role = "admin";
-	return $user;
+    $user->role = "admin";
+    return $user;
+});
+
+$factory->defineAs(App\Presentation::class, 'student_presentation', 
+        function(Faker\Generator $faker){
+    $presentation = [
+        'professor_name' => $faker->name,
+        'course' => 'AUCSC 320',
+        'title' => $faker->sentence,
+        'type' => 1,
+        'abstract' => $faker->text,
+        'special_notes' => $faker->text,
+    ];
+
+    return $presentation;
 });
