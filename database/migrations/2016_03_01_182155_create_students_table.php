@@ -14,6 +14,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
+            $table->primary('user_id');
             $table->foreign('user_id')->references('id')->
                 on('users')->onDelete('cascade')->
                 onUpdate('cascade');
