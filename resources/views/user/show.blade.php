@@ -8,12 +8,13 @@
 	<div class="table-responsive">
 		<table class="table">
 			<tr class="row">
-				<th class="col-lg-10 col-md-8 col-sm-10 text-center"></th>
+				<th class="col-lg-6 col-md-6 col-sm-6 text-center"></th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">OUR Nominee</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Type</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Submitted</th>
 				<th class="col-lg-1 col-md-1 col-sm-1 text-center">Approved</th>
+				<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
 			</tr>
 			
 			@foreach($presentations as $p)
@@ -53,6 +54,9 @@
 					@else
 						<i class="fa fa-circle-o"></i>
 					@endif
+				</td>
+				<td class="text-center">
+					@include('user._delete_presentation', ['id' => $p['id']])
 				</td>
 			</tr>
 			@endforeach

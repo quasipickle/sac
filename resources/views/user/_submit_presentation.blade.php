@@ -2,8 +2,9 @@
 	{!! csrf_field() !!}
 	{!! method_field('PATCH') !!}
 
-	<button type="submit" class="btn btn-link" 
+	<button type="submit" class="btn btn-default" 
 			aria-label="Submit Presentation" title="Submit Presentation">
 		<i class="fa fa-paper-plane"></i>
+		Submit
 	</button>
 </form>

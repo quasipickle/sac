@@ -73,7 +73,7 @@
 	<label class="col-md-3 control-label">Type</label>
 
 	<div class="col-md-6">
-		<select type="text" class="form-control" name="type"
+		<select id="select-beast" type="text" class="form-control" name="type"
 			>
 			<option value="">Select a presentation type</option>
 			<option value="" disabled>---------</option>
@@ -122,7 +122,7 @@
 	</div>
 </div>
 
-@if(Auth::user()->is_professor())
+@if(!Auth::user()->is_student())
 <div class="form-group{{ $errors->has('our_nominee') ? ' has-error' : '' }}">
 	<div class="col-md-offset-3 col-md-6">
 		<label>Nominate this student for an OUR?</label>
