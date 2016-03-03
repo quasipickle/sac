@@ -34,7 +34,7 @@ class Presentation extends Model
         if($submitted)
             $time = Carbon::now();
         $this->submitted = $submitted;
-        $this->submitted_at = $time;
+        // $this->submitted_at = $time;
     }
 
 
@@ -43,6 +43,6 @@ class Presentation extends Model
         if($approved)
             $time = Carbon::now();
         $this->approved = $approved;
-        $this->approved_at = $time;
+        // $this->approved_at = $time;
     }
 }
