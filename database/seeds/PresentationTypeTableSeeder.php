@@ -18,7 +18,7 @@ class PresentationTypeTableSeeder extends Seeder
 				PresentationType::create(['description' => $type]);
 			}
 			catch(Exception $e){
-				print($description." already exists.\n");
+				print($type." already exists.\n");
 			}
         }
     }

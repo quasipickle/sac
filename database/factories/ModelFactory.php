@@ -16,15 +16,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'email' => $faker->email,
         'username' => $faker->username,
-        'password' => bcrypt(str_random(10)),
+        'password' => bcrypt('123456'),
         'remember_token' => str_random(10),
     ];
 });
 
-$factory->defineAs(App\User::class, 'admin', function (Faker\Generator $faker) {
+$factory->defineAs(App\User::class, 'admin', function ($faker) use ($factory){
     $user = $factory->raw(App\User::class);
 
-    $user->role = "admin";
+    $user['role'] = "admin";
+    return $user;
+});
+
+$factory->defineAs(App\User::class, 'professor', function ($faker) use ($factory){
+    $user = $factory->raw(App\User::class);
+
+    $user['role'] = "professor";
     return $user;
 });
 
