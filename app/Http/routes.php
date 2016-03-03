@@ -10,7 +10,9 @@ Route::group(['middleware' => 'web'], function () {
 	Route::delete('delete_room/{id}', 'RoomsController@destroy')->name('delete_room');
 	Route::get('/admin/presentations', 'AdminController@view_presentations')->name('presentations');
 	Route::get('/admin/courses', 'AdminController@view_courses')->name('courses');
-
+  Route::get('/admin/requests', 'AdminController@show_requests')->name('requests');
+	Route::get('/admin/approve_request/{id}', 'AdminController@approve_request')->name('approve_request');
+	Route::get('/admin/decline_request/{id}', 'AdminController@decline_request')->name('decline_request');
 
     Route::auth();
 	Route::patch('presentation/{id}/submit', 'PresentationsController@submit')
