@@ -1,6 +1,6 @@
 @extends('dashboard.adminbase')
 
-@section('title')
+@section('head')
 <center>
   <h1>Home</h1>
 </center>

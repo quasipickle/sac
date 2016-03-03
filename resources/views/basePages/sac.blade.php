@@ -16,11 +16,20 @@
   <body>
     @include('basePages.uofabar')
 
+    @include('flash::message')
+
     <div class="container-fluid">
       @yield('content')
     </div>
 
     @include('basePages.uofafooter')
+
     <script src="{{ asset('js/all.js') }}"></script>
+
+    @yield('scripts')
+    
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
   </body>
 </html>
