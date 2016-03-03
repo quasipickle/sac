@@ -19,7 +19,7 @@ class RoomsController extends Controller
     }
 
     public function store(){
-       $rooms= Room::all();
+      // $rooms= Room::all();
        $input = Request::all();
        $room = new Room();
        $room->code = $input['code'];
@@ -27,5 +27,17 @@ class RoomsController extends Controller
        $room->save();
        //return view('dashboard.room')->with('rooms', $rooms);
        return redirect()->route('show_rooms');
+    }
+
+    public function destroy($id)
+    {
+        print("hello");
+        $room = Room::findOrFail($id);
+        //$this->authorize('modify', $room);
+
+        $room->delete();
+        //flash()->success("Room deleted!");
+
+        return redirect()->route('show_rooms');
     }
 }
