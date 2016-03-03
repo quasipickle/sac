@@ -40,9 +40,10 @@
 			<option value="" disabled >---------</option>
 
 			@foreach($courses as $course)
-				<option value="{{ $course->code }}"
-					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
-				{{ $course->code." - ".$course->description }}</option>
+				<option value="{{ $course->id }}"
+					{{old('course', $presentation['course']) ==
+					 $course->id ? 'selected' : ''}}>
+				{{ $course->subject_code." ". $course->number." - ".$course->title }}</option>
 			@endforeach
 		</select>
 
