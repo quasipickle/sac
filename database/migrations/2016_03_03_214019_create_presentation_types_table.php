@@ -16,7 +16,7 @@ class CreatePresentationTypesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('description', 20);
+            $table->string('description', 20)->unique();
             $table->timestamps();
         });
     }

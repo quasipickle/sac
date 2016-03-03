@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('number', 4);
             $table->string('title', 100);
 
+            $table->unique(['number', 'subject_code']);
             $table->foreign('subject_code')->
                 references('code')->on('subjects')->
                 onUpdate('cascade')->
