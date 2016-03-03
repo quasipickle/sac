@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
+use Auth;
+
 class PresentationRequest extends Request
 {
     /**
@@ -24,12 +26,21 @@ class PresentationRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules =  [
             'professor_name' => 'required',
             'student_name' => 'required',
             'course' => 'required',
             'title' => 'required',
             'type' => 'required',
         ];
+
+        $user = Auth::user();
+        if($user->is_student()){
+            unset($rules['student_name']);
+        } else if ($user->is_professor()){
+            unset($rules['professor_name']);
+        }
+
+        return $rules;
     }
 }

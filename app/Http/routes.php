@@ -15,10 +15,10 @@ Route::group(['middleware' => 'web'], function () {
 		->name('submit_presentation');
 	Route::resource('presentation', 'PresentationsController',
 		['except' => 'show']);
+
 	Route::get('/new_role', 'UsersController@request_new_role')
 	      ->name('new_role');
-
-		Route::resource('user', 'UsersController', ['only' => 'show']);
+	Route::resource('user', 'UsersController', ['only' => 'show']);
 
 
 });

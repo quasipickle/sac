@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Carbon\Carbon;
-
 use Auth;
 
 use App\Http\Requests\PresentationRequest;
@@ -46,6 +44,7 @@ class PresentationsController extends Controller
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
+        $presentation = $this->setOwner($presentation);
         return $this->preapare_form($presentation, 'create');
     }
 
@@ -60,11 +59,10 @@ class PresentationsController extends Controller
     public function store(PresentationRequest $request)
     {
         $presentation = new Presentation($request->all());
-        $presentation->owner = Auth::user()->id;
-        if($presentation->save())
-            return redirect()->route('home')->with('message', 'Success');
-        else
-            return back()->withInput();
+        $presentation = $this->setOwner($presentation);
+        $presentation->save();
+        flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
+        return redirect()->route('user.show', Auth::user());
 
 
     }
@@ -92,14 +90,15 @@ class PresentationsController extends Controller
     public function submit($id)
     {
         $presentation = Presentation::findOrFail($id);
-        if($presentation->owner == Auth::user()->id){
-            $presentation->submitted = true;
-            $presentation->submitted_at = Carbon::now();
-            $presentation->approved = false;
-            $presentation->approved_at = null;
-            $presentation->save();
-        }
-        return redirect()->route('home');
+        $this->authorize('modify', $presentation);
+
+        $presentation->set_submit(true);
+        $presentation->set_approval(false);
+        $presentation->save();
+
+        flash()->success("Presentation submitted with success!");
+
+        return redirect()->route('user.show', Auth::user());
     }
 
     /**
@@ -113,14 +112,17 @@ class PresentationsController extends Controller
     {
         $presentation = Presentation::findOrFail($id);
 
-        if($presentation->owner == Auth::user()->id){
-            $presentation->submitted = false;
-            $presentation->submitted_at = null;
-            $presentation->approved = false;
-            $presentation->approved_at = null;
-            $presentation->update($request->all());
-        }
-        return redirect()->route('home');
+        $this->authorize('modify', $presentation);
+
+        $presentation->set_submit(false);
+        $presentation->set_approval(false);
+        $presentation->update($request->all());
+
+        flash()->overlay("Don't forget to resubmit this update"
+             ." to SAC coordinator", "Success!");
+
+        return redirect()->route('user.show', Auth::user());
+
     }
 
     /**
@@ -131,7 +133,13 @@ class PresentationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        $this->authorize('modify', $presentation);
+
+        $presentation->delete();
+        flash()->success("Presentation deleted!");
+
+        return redirect()->route('user.show', Auth::user());
     }
 
     private function preapare_form($presentation, $action)
@@ -140,5 +148,18 @@ class PresentationsController extends Controller
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
+    }
+
+
+    private function setOwner($presentation){
+        $user = Auth::user();
+
+        if($user->is_student()){
+            $presentation->student_name = $user->name;
+        } else if($user->is_professor()){
+            $presentation->professor_name = $user->name;
+        }
+        $presentation->owner = $user->id;
+        return $presentation;
     }
 }

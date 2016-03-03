@@ -27,4 +27,16 @@ class User extends Authenticatable
     public function presentations(){
         return $this->hasMany("App\Presentation", "owner");
     }
+
+    public function is_student(){
+        return $this->role == 'student';
+    }
+
+    public function is_professor(){
+        return $this->role == 'professor';
+    }
+
+    public function is_admin(){
+        return $this->role == 'admin';
+    }
 }

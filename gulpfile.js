@@ -19,10 +19,11 @@ elixir(function(mix) {
   mix.sass('app.scss')
     .copy(bootstrapPath + '/fonts', 'public/fonts');
   
-  mix.scripts([
-      'jquery.min.js',
-      'bootstrap.min.js'
-  ]);
+  mix.scripts(['jquery.min.js','bootstrap.min.js'])
+    .scripts('react-select.min.js', 'public/js/react-select.js')
+    .scriptsIn('resources/assets/js/select-dep', 'public/js/select-dependencies.js');
   
+  mix.copy('resources/assets/css/react-select.min.css', 'public/css/react-select.css');
+
   mix.version(['public/css/app.css']);
 });
