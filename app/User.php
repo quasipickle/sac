@@ -34,15 +34,15 @@ class User extends Authenticatable
     }
 
     public function is_student(){
-        return false;
+        return $this->role == 'student';
     }
 
     public function is_professor(){
-        return false;
+        return $this->role == 'professor';
     }
 
     public function is_admin(){
-        return $this->admin;
+        return $this->role == 'admin';
     }
 
     public function make_student(){
