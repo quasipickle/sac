@@ -10,5 +10,9 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/new_role', 'UsersController@request_new_role')
 	      ->name('new_role');
 	Route::resource('user', 'UsersController', ['only' => 'show']);
+	Route::group(['prefix' => 'professor/my'], function ($id) {
+    	Route::get('courses', 'UsersController@my_courses')->
+    		name('my_courses');
+	});
 
 });

@@ -45,6 +45,11 @@ class UsersController extends Controller
 
     }
 
+    public function my_courses(){
+        
+        return view('user.my_courses');
+    }
+
     public function request_new_role(){
         $user = Auth::user();
         if($user->is_student()){
