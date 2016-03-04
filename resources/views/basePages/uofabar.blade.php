@@ -6,32 +6,7 @@
       </a>
     </div>
       @if(Auth::check())
-        <p class="navbar-text">
-          <a href="{!! route('presentation.create') !!}">
-            <span class="uofatext">
-              <i class="fa fa-plus-square"></i>
-              Presentation
-            </span>
-          </a>
-        </p>
-
-        @if(Auth::user()->role == 'student' && Auth::User()->request_new_role == false)
-        <p class="navbar-text">
-          <a href="{!! route('new_role') !!}">
-            <span class="uofatext">
-              Request Professor Role
-            </span>
-          </a>
-        </p>
-        @endif
-          <p class="navbar-text navbar-right">
-            <a href="{!! url('/logout') !!}">
-              <span class="uofatext">
-                <i class="fa fa-sign-out"></i>
-                Log out
-              </span>
-            </a>
-          </p>
+        @include('user._user_navbar')
       @else
         <p class="navbar-text navbar-right">
           <span class="uofatext">

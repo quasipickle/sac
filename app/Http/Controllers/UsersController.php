@@ -48,7 +48,7 @@ class UsersController extends Controller
     public function request_new_role(){
         $user = Auth::user();
         if($user->is_student()){
-            $user->request_new_role = true;
+            $user->requested_new_role = true;
             $user->save();
             flash("Request has been sent! Wait for administratror's approval");
         }
