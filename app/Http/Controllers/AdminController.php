@@ -20,10 +20,7 @@ class AdminController extends Controller
       return view('dashboard.adminhome');
     }
 
-    public function view_presentations(){
-      $presentations = Presentation::all();
-      return view('dashboard.presentations')->with('presentations', $presentations);
-    }
+    
 
     public function view_courses(){
       $courses = Course::all();

@@ -162,4 +162,17 @@ class PresentationsController extends Controller
         $presentation->owner = $user->id;
         return $presentation;
     }
+
+    public function view_presentations_admin(){
+      $presentations = Presentation::where('approved', false)->get();
+      return view('dashboard.presentations')->with('presentations', $presentations);
+    }
+
+    public function approve_presentations($id){
+      $presentation = Presentation::findOrFail($id);
+      $presentation->approved=true;
+      $presentation->save();
+      flash()->success("This presentations has been approved");
+      return redirect()->route('presentations');
+    }
 }
