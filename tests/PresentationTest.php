@@ -33,7 +33,7 @@ class PresentationTest extends TestCase
             visit(route('presentation.create'))->
             type($presentation['professor_name'], 'professor_name')->
             type($user['name'], 'student_name')->
-            select($presentation['course'], 'course')->
+            select($presentation['course_id'], 'course_id')->
             type($presentation['title'], 'title')->
             select($presentation['type'], 'type')->
             press('Save');

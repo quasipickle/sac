@@ -28,6 +28,11 @@ class User extends Authenticatable
         return $this->hasMany("App\Presentation", "owner");
     }
 
+    public function courses(){
+        return $this->belongsToMany('App\Course', 'user_courses',
+             'course_id', 'user_id');
+    }
+
     public function is_student(){
         return $this->role == 'student';
     }
@@ -38,5 +43,17 @@ class User extends Authenticatable
 
     public function is_admin(){
         return $this->role == 'admin';
+    }
+
+    public function make_student(){
+        return $this->role = 'student';
+    }
+
+    public function make_professor(){
+        return $this->role = 'professor';
+    }
+
+    public function make_admin(){
+        return $this->role = 'admin';
     }
 }

@@ -31,7 +31,7 @@
 					</p>
 				</td>
 				<td class="text-center">
-					@if($p['submitted_at'] < $p['updated_at'])
+					@unless($p['submitted'])
 						@include('user._submit_presentation', ['id' => $p['id']])
 					@endif
 				</td>

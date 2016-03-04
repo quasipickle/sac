@@ -4,15 +4,26 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use DB;
 
 class Presentation extends Model
 {
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'submitted' => 'boolean',
+        'approved' => 'boolean'
+    ];
+
     protected $guarded = ['id', 'owner'];
 
     protected $dates = ['submitted_at', 'approved_at'];
 
     public function course(){
-        return $this->belongsTo("App\Course", "course");
+        return $this->belongsTo("App\Course", "course_id");
     }
 
     public function type(){
@@ -21,22 +32,5 @@ class Presentation extends Model
 
     public function owner(){
         return $this->belongsTo("App\User", "owner");
-    }
-
-    public function set_submit($submitted){
-        $time = null;
-        if($submitted)
-            $time = Carbon::now();
-        $this->submitted = $submitted;
-        $this->submitted_at = $time;
-    }
-
-
-    public function set_approval($approved){
-        $time = null;
-        if($approved)
-            $time = Carbon::now();
-        $this->approved = $approved;
-        $this->approved_at = $time;
     }
 }

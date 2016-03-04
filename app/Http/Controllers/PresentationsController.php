@@ -45,7 +45,7 @@ class PresentationsController extends Controller
         $presentation->type = -1;
         $presentation->course = null;
         $presentation = $this->setOwner($presentation);
-        return $this->preapare_form($presentation, 'create');
+        return $this->prepare_form($presentation, 'create');
     }
 
 
@@ -60,10 +60,10 @@ class PresentationsController extends Controller
     {
         $presentation = new Presentation($request->all());
         $presentation = $this->setOwner($presentation);
+
         $presentation->save();
         flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
         return redirect()->route('user.show', Auth::user());
-
     }
 
 
@@ -76,7 +76,7 @@ class PresentationsController extends Controller
     public function edit($id)
     {
         $presentation = Presentation::findOrFail($id);
-        return $this->preapare_form($presentation, 'edit');
+        return $this->prepare_form($presentation, 'edit');
     }
 
     /**
@@ -91,8 +91,8 @@ class PresentationsController extends Controller
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
-        $presentation->set_submit(true);
-        $presentation->set_approval(false);
+        $presentation->submitted = true;
+        $presentation->approved = false;
         $presentation->save();
 
         flash()->success("Presentation submitted with success!");
@@ -112,8 +112,8 @@ class PresentationsController extends Controller
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
-        $presentation->set_submit(false);
-        $presentation->set_approval(false);
+        $presentation->submitted = false;
+        $presentation->approved = false;
         $presentation->update($request->all());
 
         flash()->overlay("Don't forget to resubmit this update"
@@ -139,9 +139,9 @@ class PresentationsController extends Controller
         return redirect()->route('user.show', Auth::user());
     }
 
-    private function preapare_form($presentation, $action)
+    private function prepare_form($presentation, $action)
     {
-        $courses = Course::all();
+        $courses = Course::orderBy('subject_code', 'asc')->get();
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
