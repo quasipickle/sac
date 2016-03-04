@@ -39,7 +39,7 @@ $factory->defineAs(App\Presentation::class, 'student_presentation',
         function(Faker\Generator $faker){
     $presentation = [
         'professor_name' => $faker->name,
-        'course' => 'AUCSC 320',
+        'course_id' => 1,
         'title' => $faker->sentence,
         'type' => 1,
         'abstract' => $faker->text,

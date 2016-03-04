@@ -17,6 +17,7 @@ class CreatePresentationsTable extends Migration
 
             $table->increments('id');
             $table->string('professor_name', 150);
+            $table->string('student_name', 150);
             $table->integer('course_id')->unsigned();
             $table->string('title', 200);
             $table->integer('type')->unsigned();
