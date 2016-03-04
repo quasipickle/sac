@@ -141,7 +141,7 @@ class PresentationsController extends Controller
 
     private function preapare_form($presentation, $action)
     {
-        $courses = Course::all();
+        $courses = Course::orderBy('subject_code', 'asc')->get();
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
