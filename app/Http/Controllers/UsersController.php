@@ -48,7 +48,7 @@ class UsersController extends Controller
     public function my_courses(){
         $courses = \App\Course::orderBy('subject_code', 'asc')->
             orderBy('number')->get();
-        return view('user.my_courses', compact('courses'));
+        return view('user.professor.my_courses', compact('courses'));
     }
 
     public function add_course(Request $request){

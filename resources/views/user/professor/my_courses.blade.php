@@ -7,7 +7,7 @@
 	</h3>
 
 	<div class="row">
-		@include('user._add_course')
+		@include('user.professor._add_course')
 	</div>
 
 	<br>
@@ -41,7 +41,7 @@
 						</p>
 					</td>
 					<td class="text-center">
-						@include('user._revome_course')
+						@include('user.professor._remove_course')
 					</td>
 				</tr>
 				@endforeach
