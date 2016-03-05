@@ -46,8 +46,16 @@ class UsersController extends Controller
     }
 
     public function my_courses(){
-        
-        return view('user.my_courses');
+        $courses = \App\Course::orderBy('subject_code', 'asc')->get();
+        return view('user.my_courses', compact('courses'));
+    }
+
+    public function add_course(Request $request){
+        return print($request);
+        $user = Auth::user();
+        $user->courses()->attach($request['course_id']);
+        $user->save();
+        return redirect(route('my_courses'));
     }
 
     public function request_new_role(){
