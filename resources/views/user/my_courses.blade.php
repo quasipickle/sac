@@ -7,30 +7,12 @@
 	</h3>
 
 	<div class="row">
-		<form action="{{ route('add_course') }}" method="POST">
-			{!! csrf_field() !!}
-			<div class="col-md-11">
-				<select type="text" class="form-control" name="course_id" id="course">
-					<option value=""> Select a course </option>
-					<option value="" disabled >---------</option>
+		@include('user._add_course')
+	</div>
 
-					@foreach($courses as $course)
-						<option value="{{ $course->id }}">
-						{{ $course->subject_code." ". $course->number." - ".$course->title }}</option>
-					@endforeach
-				</select>
-			</div>
-			
-			<div>
-				<button type="submit" class="btn btn-default" id="add_course">
-					<i class="fa fa-plus"></i>
-				</button>
-			</div>
-			</form>
-		</div>
+	<br>
 
 	<div class="row">
-		<div class="table-responsive">
 			<table class="table">
 				<tr class="row">
 					<th class="col-lg-1 col-md-1 col-sm-1 text-center">Subject</th>
@@ -40,7 +22,8 @@
 				</tr>
 				
 				
-				@foreach(Auth::user()->courses as $course)
+				@foreach(Auth::user()->courses()->
+				orderBy('subject_code')->get() as $course)
 				<tr class="row">
 					<td class="text-center">
 						<p>
@@ -58,12 +41,11 @@
 						</p>
 					</td>
 					<td class="text-center">
-						<i class="fa fa-trash"></i>
+						@include('user._revome_course')
 					</td>
 				</tr>
 				@endforeach
 			</table>
 		</div>
 	</div>
-</div>
 @stop
