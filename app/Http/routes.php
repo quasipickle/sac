@@ -15,5 +15,7 @@ Route::group(['middleware' => 'web'], function () {
     		name('my_courses');
 		Route::post('add', 'UsersController@add_course')->
 			name('add_course');
+		Route::post('remove/{id}', 'UsersController@remove_course')->
+			name('remove_course');
 	});
 });
