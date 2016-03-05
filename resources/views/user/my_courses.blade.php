@@ -7,7 +7,7 @@
 	</h3>
 
 	<div class="row">
-		<form method="POST">
+		<form action="{{ route('add_course') }}" method="POST">
 			{!! csrf_field() !!}
 			<div class="col-md-11">
 				<select type="text" class="form-control" name="course_id" id="course">
@@ -22,13 +22,13 @@
 			</div>
 			
 			<div>
-				<a href="#" class="btn btn-default" id="add_course">
+				<button type="submit" class="btn btn-default" id="add_course">
 					<i class="fa fa-plus"></i>
-				</a>
+				</button>
 			</div>
 			</form>
 		</div>
-		
+
 	<div class="row">
 		<div class="table-responsive">
 			<table class="table">
@@ -66,18 +66,4 @@
 		</div>
 	</div>
 </div>
-@stop
-
-@section('scripts')
-	<script type="text/javascript">
-		$( document ).ready(function() {
-			$('#add_course').click(function(){
-				var course = $('#course');
-				var url = "{{ route('add_course') }}";
-				$.post(url)  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-			});
-		});
-	</script>
 @stop

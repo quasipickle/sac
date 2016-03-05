@@ -51,7 +51,6 @@ class UsersController extends Controller
     }
 
     public function add_course(Request $request){
-        return print($request);
         $user = Auth::user();
         $user->courses()->attach($request['course_id']);
         $user->save();
