@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Presentation;
@@ -12,6 +12,10 @@ use App\User;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+      $this->middleware('admin');
+    }
+
     public function base(){
       return view('dashboard.adminbase');
     }
@@ -20,7 +24,7 @@ class AdminController extends Controller
       return view('dashboard.adminhome');
     }
 
-    
+
 
     public function view_courses(){
       $courses = Course::all();
@@ -34,7 +38,7 @@ class AdminController extends Controller
 
     public function approve_request($id){
       $user=User::findOrFail($id);
-      $user->role = 'Professor';
+      $user->role = 'professor';
       $user->request_new_role = false;
       $user->save();
       flash()->success($user->name . " now has professor status.");
