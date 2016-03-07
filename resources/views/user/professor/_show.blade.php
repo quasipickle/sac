@@ -9,7 +9,8 @@
 	</h4>
 
 	<div class="collapse" id="{{$course->id}}">
-		@include('user._presentations_table', ['presentations' => $course->presentations])
+		@include('user._presentations_table',
+			['presentations' => $course->presentations])
 	</div>
 	
 	@endforeach
