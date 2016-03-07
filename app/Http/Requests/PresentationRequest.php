@@ -29,7 +29,7 @@ class PresentationRequest extends Request
         $rules =  [
             'professor_name' => 'required',
             'student_name' => 'required',
-            'course' => 'required',
+            'course_id' => 'required',
             'title' => 'required',
             'type' => 'required',
         ];

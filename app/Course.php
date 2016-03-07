@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     public function presentations(){
-      return $this->hasMany("App\Presentation", "course");
+        return $this->hasMany("App\Presentation", "course_id");
+    }
+
+    public function subject(){
+        return $this->belongsTo("App\Subject", "subject_code");
+    }
+
+    public function professors(){
+        return $this->belongsToMany('App\User', 'user_courses');
     }
 }
