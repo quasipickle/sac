@@ -31,24 +31,25 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('course') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('course_id') ? ' has-error' : '' }}">
 	<label class="col-md-3 control-label">Course</label>
 
 	<div class="col-md-6">
-		<select type="text" class="form-control" name="course">
+		<select type="text" class="form-control" name="course_id">
 			<option value=""> Select a course </option>
 			<option value="" disabled >---------</option>
 
 			@foreach($courses as $course)
-				<option value="{{ $course->code }}"
-					{{old('course', $presentation['course']) == $course->code ? 'selected' : ''}}>
-				{{ $course->code." - ".$course->description }}</option>
+				<option value="{{ $course->id }}"
+					{{old('course_id', $presentation['course_id']) ==
+					 $course->id ? 'selected' : ''}}>
+				{{ $course->subject_code." ". $course->number." - ".$course->title }}</option>
 			@endforeach
 		</select>
 
-		@if ($errors->has('course'))
+		@if ($errors->has('course_id'))
 			<span class="help-block">
-				<strong>{{ $errors->first('course') }}</strong>
+				<strong>{{ $errors->first('course_id') }}</strong>
 			</span>
 		@endif
 	</div>

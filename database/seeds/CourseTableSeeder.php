@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Course;
+use App\Subject;
 
 class CourseTableSeeder extends Seeder
 {
@@ -20,15 +21,26 @@ class CourseTableSeeder extends Seeder
 	private function parseCourses(){
 		$courses = $this->getCourses();
 		foreach ($courses as $course) {
-			$code = $course['asstring'][0];
-			$description = $course['coursetitle'][0];
-			$subject = $course['subjecttitle'][0];
-			$subject = str_replace('Augustana Faculty - ', '', $subject);
-			$attributes = ['code' => $code, 'description' => $description, 'subject' => $subject];
+			$number = $course['catalog'][0];
+			$title = $course['coursetitle'][0];
+			$subject_code = $course['subject'][0];
+			$subject_code = str_replace('AU', '', $subject_code);
+			try{
+
+				$subject_title = $course['subjecttitle'][0];
+				$subject_title = str_replace('Augustana Faculty - ', '', $subject_title);
+
+				Subject::create(['code' => $subject_code, 'name' => $subject_title]);
+			} catch(Exception $e){
+				print("Subject ".$subject_code." already exists.\n");
+			}
+			$attributes = ['subject_code' => $subject_code,
+            'number' => $number,
+            'title' => $title];
 			try{
 				Course::create($attributes);
 			}catch(Exception $e){
-				print($code." already exists.\n");
+				print("Course ".$subject_code.$number." already exists.\n");
 			}
 		}
 	}
@@ -46,9 +58,10 @@ class CourseTableSeeder extends Seeder
 
 		# Data we want
 		# 'subjectTitle' is the name of the the discipline(ie: Psychology)
+		# 'subject' is the acronym of the discipline name (ie PSYCHO)
 		# 'courseTitle' is the name for this course
-		# 'asstring' is the course name (ie: AUPOL 104)
-		$attributes =  ['asstring', 'courseTitle', 'subjectTitle'];
+		# 'catalog' is the course number (ie: 104)
+		$attributes =  ['catalog', 'courseTitle', 'subjectTitle', 'subject'];
 
 		return $this->getResults($term_context, $filter, $attributes);
 	

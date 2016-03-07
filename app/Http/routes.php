@@ -15,6 +15,7 @@ Route::group(['middleware' => 'web'], function () {
 	                           ->name('approve_presentation');
 	Route::get('/admin/decline_presentation', 'PresentationsController@decline_presentation')
 	                          ->name('decline_presentation');
+	Route::put('changeAvaliability/{id}', 'RoomsController@changeAvaliability')->name('changeAvaliability');
 	Route::get('/admin/courses', 'AdminController@view_courses')->name('courses');
   Route::get('/admin/requests', 'AdminController@show_requests')->name('requests');
 	Route::get('/admin/approve_request/{id}', 'AdminController@approve_request')->name('approve_request');
@@ -31,5 +32,12 @@ Route::group(['middleware' => 'web'], function () {
 	      ->name('new_role');
 	Route::resource('user', 'UsersController', ['only' => 'show']);
 
-
+	Route::group(['prefix' => 'professor/my'], function () {
+    	Route::get('courses', 'UsersController@my_courses')->
+    		name('my_courses');
+		Route::post('add', 'UsersController@add_course')->
+			name('add_course');
+		Route::post('remove/{id}', 'UsersController@remove_course')->
+			name('remove_course');
+	});
 });

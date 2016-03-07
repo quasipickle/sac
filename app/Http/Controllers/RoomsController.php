@@ -36,7 +36,6 @@ class RoomsController extends Controller
 
     public function destroy($id)
     {
-        print("hello");
         $room = Room::findOrFail($id);
         //$this->authorize('modify', $room);
 
@@ -44,5 +43,11 @@ class RoomsController extends Controller
         //flash()->success("Room deleted!");
 
         return redirect()->route('show_rooms');
+    }
+
+    public function changeAvaliability($id)
+    {
+      // $room = Room::findOrFail($id);
+      print('got to this point');
     }
 }

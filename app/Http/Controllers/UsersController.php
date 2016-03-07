@@ -49,13 +49,49 @@ class UsersController extends Controller
 
     }
 
+    public function my_courses(){
+        $courses = \App\Course::orderBy('subject_code', 'asc')->
+            orderBy('number')->get();
+        return view('user.professor.my_courses', compact('courses'));
+    }
+
+    public function add_course(Request $request){
+        $user = Auth::user();
+        $this->authorize('add_course', $user);
+
+        try{
+            $user->courses()->attach($request['course_id']);
+            $user->save();
+            flash()->success('Course added to your account!');
+        } catch(\Illuminate\Database\QueryException $e){
+            flash()->error('You already have this course');
+        }
+
+        return redirect(route('my_courses'));
+    }
+
+    public function remove_course($id){
+        $user = Auth::user();
+        $this->authorize('remove_course', $user);
+
+        try{
+            $user->courses()->detach($id);
+            $user->save();
+            flash()->success('Course removed from your account!');
+        } catch(\Illuminate\Database\QueryException $e){
+            flash()->error("You don't have this course");
+        }
+
+        return redirect(route('my_courses'));
+    }
+
     public function request_new_role(){
         $user = Auth::user();
-        if($user->is_student()){
-            $user->request_new_role = true;
-            $user->save();
-            flash("Request has been sent! Wait for administratror's approval");
-        }
+        $this->authorize('request_new_role', $user);
+
+        $user->requested_new_role = true;
+        $user->save();
+        flash("Request has been sent! Wait for administratror's approval");
         return redirect(route('user.show', $user->id));
     }
 
