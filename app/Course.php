@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     public function presentations(){
-        return $this->hasMany("App\Presentation", "course");
+        return $this->hasMany("App\Presentation", "course_id");
     }
 
     public function subject(){
