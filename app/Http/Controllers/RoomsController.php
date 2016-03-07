@@ -40,9 +40,16 @@ class RoomsController extends Controller
         return redirect()->route('show_rooms');
     }
 
-    public function changeAvaliability($id)
+    public function changeAvailability($id)
     {
-      // $room = Room::findOrFail($id);
-      print('got to this point');
+      $room = Room::findOrFail($id);
+      if ($room['available'] == 1){
+        $room->available = 0;
+      }
+      else {
+        $room->available = 1;
+      }
+      $room->save();
+      return redirect()->route('show_rooms');
     }
 }
