@@ -9,6 +9,8 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic|Abel" rel="stylesheet" type="text/css">
+
 
     <title> SAC - @yield('title')</title>
   </head>

@@ -21,8 +21,7 @@ class PresentationPolicy
      */
 
     public function modify(User $user, Presentation $presentation){
-        return ($user->id === $presentation->owner) || $user->is_admin();
+        return ($user->id === $presentation->owner) || $user->is_admin() ||
+            ($user->courses->contains($presentation->course_id));
     }
-
-
 }

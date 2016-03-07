@@ -1,7 +1,7 @@
 <p class="navbar-text">
-  <a href="#">
+  <a href="{{ route('my_courses') }}">
     <span class="uofatext">
-      <!-- <i class="fa fa-plus-square"></i> -->
+      <i class="fa fa-list"></i>
       My Courses
     </span>
   </a>

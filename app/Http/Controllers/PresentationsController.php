@@ -140,8 +140,11 @@ class PresentationsController extends Controller
     }
 
     private function prepare_form($presentation, $action)
-    {
-        $courses = Course::orderBy('subject_code', 'asc')->get();
+    {   
+        $user = Auth::user();
+        $courses = $user->courses;
+        if(Auth::user()->is_student())
+            $courses = Course::orderBy('subject_code', 'asc')->get();
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));

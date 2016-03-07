@@ -15,10 +15,10 @@ class CreateUserCoursesTable extends Migration
         Schema::create('user_courses', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->integer('user_id')->unsigned()->unique();
-            $table->integer('course_id')->unsigned()->unique();
+            $table->integer('user_id')->unsigned();
+            $table->integer('course_id')->unsigned();
 
-            $table->primary(['user_id', 'course_id']);
+            $table->unique(['user_id', 'course_id']);
             $table->foreign('user_id')->
                 references('id')->on('users')->
                 onUpdate('cascade')->

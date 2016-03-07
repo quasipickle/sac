@@ -22,15 +22,3 @@
 	</div>
 </div>
 @stop
-
-<!-- <Select
-    name="form-field-name"
-    value="one"
-    options={options}
-    onChange={logChange}
-/> -->
-
-@section('scripts')
-	<script src=" {{ asset('js/select-dependencies.js') }}"></script>
-	<script src=" {{ asset('js/react-select.js') }}"></script>
-@stop
