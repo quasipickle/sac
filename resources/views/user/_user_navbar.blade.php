@@ -14,6 +14,10 @@
   </a>
 </p>
 
+<!-- Workaround to make the button appear with padding right -->
+<p class="navbar-text navbar-right"></p>
+
+
 <p class="navbar-text navbar-right">
   <a href="{!! url('/logout') !!}">
     <span class="uofatext">

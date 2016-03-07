@@ -8,6 +8,9 @@
       @if(Auth::check())
         @include('user._user_navbar')
       @else
+      
+        <!-- Workaround to make the button appear with padding right -->
+        <p class="navbar-text navbar-right"></p>
         <p class="navbar-text navbar-right">
           <span class="uofatext">
             You are not signed in.
