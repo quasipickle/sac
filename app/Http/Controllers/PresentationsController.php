@@ -21,6 +21,7 @@ class PresentationsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['view_presentations_admin', 'approve_presentations']]);
     }
 
     /**
@@ -173,6 +174,7 @@ class PresentationsController extends Controller
       $presentation->approved=true;
       $presentation->save();
       flash()->success("This presentations has been approved");
+
       return redirect()->route('presentations');
     }
 }
