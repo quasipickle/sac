@@ -2,7 +2,7 @@
 Route::group(['middleware' => 'web'], function () {
 	Route::get('/', 'StaticPagesController@home')->name('home');
 	Route::auth();
-	
+
 	Route::patch('presentation/{id}/submit', 'PresentationsController@submit')
 		->name('submit_presentation');
 	Route::resource('presentation', 'PresentationsController',
@@ -12,8 +12,8 @@ Route::group(['middleware' => 'web'], function () {
 		name('new_role');
 	Route::resource('user', 'UsersController', ['only' => 'show']);
 
-	Route::group(['preffix' => 'admin'], function () {
-		Route::resource('room', 'RoomsController');
+	Route::resource('room', 'RoomsController');
+	Route::group(['prefix' => 'admin'], function () {
 		Route::put('changeAvailability/{id}', 'RoomsController@changeAvailability')->
 			name('changeAvailability');
 		Route::get('presentations', 'PresentationsController@view_presentations_admin')
@@ -33,7 +33,6 @@ Route::group(['middleware' => 'web'], function () {
 			name('approve_request');
 		Route::get('decline_request/{id}', 'AdminController@decline_request')->
 			name('decline_request');
-		Route::get('{id}', 'AdminController@base');
 		// Route::get('presentations', 'AdminController@view_presentations')
 		// 	->name('presentations');
 		Route::get('courses', 'AdminController@view_courses')->name('courses');		

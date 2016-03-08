@@ -1,5 +1,5 @@
-@extends('dashboard.adminbase')
+@extends('user.admin.basepage')
 
-@section('comments')
+@section('admin_content')
 
 @stop

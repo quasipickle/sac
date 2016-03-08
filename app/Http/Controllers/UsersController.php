@@ -32,10 +32,8 @@ class UsersController extends Controller
             $presentations = $user->presentations()->
             orderBy('updated_at','desc')->get()->toArray();
             $presentation_types = PresentationType::all()->toArray();
-            array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
-            if($user->is_admin()){
-              return view('dashboard.adminbase');
-            }
+            // Add one value to make the id match the position in the array
+            array_unshift($presentation_types, '');
             return view('user.show', compact('presentations', 'presentation_types'));
         }
         else {

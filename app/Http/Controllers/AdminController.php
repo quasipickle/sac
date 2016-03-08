@@ -16,16 +16,6 @@ class AdminController extends Controller
       $this->middleware('admin');
     }
 
-    public function base(){
-      return view('dashboard.adminbase');
-    }
-
-    public function home(){
-      return view('dashboard.adminhome');
-    }
-
-
-
     public function view_courses(){
       $courses = Course::all();
       return view('dashboard.courses')->with('courses', $courses);

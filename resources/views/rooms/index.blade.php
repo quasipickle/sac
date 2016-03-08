@@ -17,7 +17,6 @@
         <th class="col-lg-3 col-md-3 col-sm-3">Description</th>
         <th class="col-lg-1 col-md-1 col-sm-1"></th>
         <th class="col-lg-1 col-md-1 col-sm-1"></th>
-        <th class="col-lg-1 col-md-1 col-sm-1"></th>
     </tr>
         @foreach($rooms as $room)
         <tr class="row">
@@ -31,15 +30,8 @@
                 {{$room->description}}
             </td>
             <td class="text-center">
-                @include('dashboard._change_avaliability',
+                @include('dashboard._change_availability',
                     ['id' => $room['code']])
-            </td>
-            <td class="text-center">
-                @if($room['available'])
-                    <i class="fa fa-check-circle-o"></i>
-                @else
-                    <i class="fa fa-circle-o"></i>
-                @endif
             </td>
             <td class="text-center">
                 @include('rooms._delete', ['code' => $room['code']])

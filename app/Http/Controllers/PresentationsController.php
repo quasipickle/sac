@@ -145,9 +145,12 @@ class PresentationsController extends Controller
     private function prepare_form($presentation, $action)
     {
         $user = Auth::user();
-        $courses = $user->courses;
-        if(Auth::user()->is_student())
+        
+        if(Auth::user()->is_professor())
+            $courses = $user->courses;
+        else
             $courses = Course::orderBy('subject_code', 'asc')->get();
+        
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
@@ -167,7 +170,7 @@ class PresentationsController extends Controller
     }
 
     public function view_presentations_admin(){
-      $presentations = Presentation::where('declined', false)->get();
+      $presentations = Presentation::where('approved', false)->get();
       return view('dashboard.presentations')->with('presentations', $presentations);
     }
 

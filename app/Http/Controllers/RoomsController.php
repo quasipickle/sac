@@ -14,7 +14,7 @@ class RoomsController extends Controller
     public function __construct(){
       $this->middleware('admin');
     }
-    
+
     public function index(){
         $rooms = Room::all();
         return view('rooms.index')->with('rooms', $rooms);
@@ -47,6 +47,6 @@ class RoomsController extends Controller
         $room->available = 1;
       }
       $room->save();
-      return redirect()->route('show_rooms');
+      return redirect()->route('room.index');
     }
 }
