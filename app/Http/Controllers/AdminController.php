@@ -38,7 +38,7 @@ class AdminController extends Controller
 
     public function approve_request($id){
       $user=User::findOrFail($id);
-      $user->role = 'professor';
+      $user->make_professor();
       $user->request_new_role = false;
       $user->save();
       flash()->success($user->name . " now has professor status.");

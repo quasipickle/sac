@@ -20,7 +20,8 @@ class accessAdmin
           return $next($request);
         }
         else{
-          return redirect()->route('home'); //have to add index.php to the url
+          flash()->error("You are not allowed to access admin routes.");
+          return redirect()->route('home');
         }
 
     }

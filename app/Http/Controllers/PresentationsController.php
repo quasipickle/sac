@@ -167,11 +167,11 @@ class PresentationsController extends Controller
     }
 
     public function view_presentations_admin(){
-      $presentations = Presentation::where('approved', false)->get();
+      $presentations = Presentation::where('declined', false)->get();
       return view('dashboard.presentations')->with('presentations', $presentations);
     }
 
-    public function approve_presentations($id){
+    public function approve_presentation($id){
       $presentation = Presentation::findOrFail($id);
       $presentation->approved=true;
       $presentation->save();
@@ -179,4 +179,21 @@ class PresentationsController extends Controller
 
       return redirect()->route('presentations');
     }
+
+    public function decline_presentation($id){
+      $presentation = Presentations::findOrFail($id);
+      $presentation->submitted==false;
+      $presentation->declined==true;
+      $presentation->save();
+
+      return redirect()->route('presentations');
+    }
+
+    public function review_presentation($id){
+      $presentation = Presentation::findOrFail($id);
+
+      $presentation->save();
+      return view('Presentations.edit')->with('presentation', $presentation);
+    }
+
 }
