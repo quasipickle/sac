@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $incrementing = false;
+    public $incrementing = false;
     protected $primaryKey = 'code';
+    protected $fillable = ['code', 'description', 'building'];
 }
