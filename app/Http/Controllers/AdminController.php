@@ -32,14 +32,14 @@ class AdminController extends Controller
     }
 
     public function show_requests(){
-      $users = User::where('request_new_role', true)->get();
+      $users = User::where('requested_new_role', true)->get();
       return view('dashboard.requests')->with('users', $users);
     }
 
     public function approve_request($id){
       $user=User::findOrFail($id);
       $user->make_professor();
-      $user->request_new_role = false;
+      $user->requested_new_role = false;
       $user->save();
       flash()->success($user->name . " now has professor status.");
       return redirect()->route('requests');
@@ -47,7 +47,7 @@ class AdminController extends Controller
 
     public function decline_request($id){
       $user = User::findOrFail($id);
-      $user->request_new_role = false;
+      $user->requested_new_role = false;
       $user->save();
       flash()->success($user->name . " has been denied professor status.");
       return redirect()->route('requests');
