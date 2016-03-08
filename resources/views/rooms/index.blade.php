@@ -31,7 +31,8 @@
                 {{$room->description}}
             </td>
             <td class="text-center">
-                @include('dashboard._change_avaliability', ['id' => $room['id']])
+                @include('dashboard._change_avaliability',
+                    ['id' => $room['code']])
             </td>
             <td class="text-center">
                 @if($room['available'])
@@ -41,7 +42,7 @@
                 @endif
             </td>
             <td class="text-center">
-                @include('rooms._delete', ['id' => $room['id']])
+                @include('rooms._delete', ['code' => $room['code']])
             </td>
         </tr>
         @endforeach

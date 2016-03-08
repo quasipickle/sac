@@ -1,4 +1,4 @@
-<form action="{{ route('room.destroy', $id) }}" method="post">
+<form action="{{ route('room.destroy', $code) }}" method="POST">
   {!! csrf_field() !!}
   {!! method_field('DELETE') !!}
 

@@ -11,28 +11,24 @@ use App\Http\Controllers\Controller;
 class RoomsController extends Controller
 {
     public function index(){
-      $rooms = Room::all();
-      return view('rooms.index')->with('rooms', $rooms);
+        $rooms = Room::all();
+        return view('rooms.index')->with('rooms', $rooms);
     }
     public function create(){
-      return view('rooms.create');
+        return view('rooms.create');
     }
 
     public function store(Request $request){
-       Room::create($request->all());
-       flash()->success('Room created!');
-       return redirect(route('room.index'));
+        Room::create($request->all());
+        flash()->success('Room created!');
+        return redirect(route('room.index'));
     }
 
-    public function destroy($id)
+    public function destroy($code)
     {
-        $room = Room::findOrFail($id);
-        //$this->authorize('modify', $room);
-
-        $room->delete();
-        //flash()->success("Room deleted!");
-
-        return redirect()->route('show_rooms');
+        Room::destroy($code);
+        flash()->success("Room deleted!");
+        return redirect(route('room.index'));
     }
 
     public function changeAvaliability($id)
