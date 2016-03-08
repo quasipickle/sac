@@ -15,7 +15,7 @@ class RoomsController extends Controller
       return view('rooms.index')->with('rooms', $rooms);
     }
     public function create(){
-      return view('dashboard.addRoom');
+      return view('rooms.create');
     }
 
     public function store(){
