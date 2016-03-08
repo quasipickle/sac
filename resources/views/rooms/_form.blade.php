@@ -4,8 +4,7 @@
 
   <div class="col-md-6">
       <input type="text" class="form-control" 
-        value="{{ old('code', $room['code']) }}"
-        name="code" maxlength="5" {{ $room['code'] ? 'disabled' : '' }} >
+        name="code" maxlength="5" >
   </div>
 </div>
 
@@ -14,7 +13,6 @@
 
   <div class="col-md-6">
       <input type="text" class="form-control"
-        value="{{ old('description', $room['description']) }}"
         name="description" maxlength="20">
   </div>
 </div>
@@ -24,7 +22,6 @@
 
   <div class="col-md-6">
       <input type="text" class="form-control"
-        value="{{ old('building', $room['building']) }}"
         name="building" maxlength="20">
   </div>
 </div>

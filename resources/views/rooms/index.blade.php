@@ -22,9 +22,7 @@
         @foreach($rooms as $room)
         <tr class="row">
             <td class="text-center">
-                <a href="{{route('room.edit', $room->code) }}">
-                    {{$room->code}}
-                </a>
+                {{$room->code}}
             </td>
             <td>
                 {{$room->building}}
