@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
+
 use App\Room;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class RoomsController extends Controller
 {
-    public function show(){
-      $rooms= Room::all();
-      return view('dashboard.room')->with('rooms', $rooms);
+    public function index(){
+      $rooms = Room::all();
+      return view('rooms.index')->with('rooms', $rooms);
     }
     public function create(){
       return view('dashboard.addRoom');
