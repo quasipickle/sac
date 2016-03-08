@@ -21,6 +21,7 @@ class PresentationsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['view_presentations_admin', 'approve_presentations']]);
     }
 
     /**
@@ -164,4 +165,35 @@ class PresentationsController extends Controller
         $presentation->owner = $user->id;
         return $presentation;
     }
+
+    public function view_presentations_admin(){
+      $presentations = Presentation::where('declined', false)->get();
+      return view('dashboard.presentations')->with('presentations', $presentations);
+    }
+
+    public function approve_presentation($id){
+      $presentation = Presentation::findOrFail($id);
+      $presentation->approved=true;
+      $presentation->save();
+      flash()->success("This presentations has been approved");
+
+      return redirect()->route('presentations');
+    }
+
+    public function decline_presentation($id){
+      $presentation = Presentations::findOrFail($id);
+      $presentation->submitted==false;
+      $presentation->declined==true;
+      $presentation->save();
+
+      return redirect()->route('presentations');
+    }
+
+    public function review_presentation($id){
+      $presentation = Presentation::findOrFail($id);
+
+      $presentation->save();
+      return view('Presentations.edit')->with('presentation', $presentation);
+    }
+
 }

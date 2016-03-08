@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+
 //use Illuminate\Http\Request;
 use Request;
 use App\Room;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class RoomsController extends Controller
 {
+    public function __construct(){
+      $this->middleware('admin');
+    }
     public function show(){
       $rooms= Room::all();
       return view('dashboard.room')->with('rooms', $rooms);

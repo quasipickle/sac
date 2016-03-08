@@ -28,7 +28,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if($id == $user->id){
+        if($id == $user->id && $user->is_student()){
             if(!$user->is_student()){
                 $presentations = Presentation::all()->toArray();
             }else{
@@ -38,7 +38,11 @@ class UsersController extends Controller
             $presentation_types = PresentationType::all()->toArray();
             array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
             return view('user.show', compact('presentations', 'presentation_types'));
-        } else {
+        }
+        else if($id == $user->id && $user->is_admin()){
+          return view('dashboard.adminbase');
+        }
+        else {
             flash()->error('You are not allowed to see others profiles!');
             return redirect(route('user.show', $user->id));
         }
