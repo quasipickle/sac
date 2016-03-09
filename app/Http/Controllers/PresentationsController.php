@@ -18,10 +18,10 @@ use App\PresentationType;
 class PresentationsController extends Controller
 {
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
-        $this->middleware('admin', ['only' => ['index', 'approve', 'decline']]);
+        $this->middleware('admin', 
+            ['only' => ['index', 'approve', 'decline']]);
     }
 
     /**
@@ -29,8 +29,7 @@ class PresentationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $presentations = Presentation::orderBy('updated_at','desc')->get();
         $presentation_types = PresentationType::all()->toArray();
         // Add one value to make the id match the position in the array
@@ -44,8 +43,7 @@ class PresentationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
@@ -61,8 +59,7 @@ class PresentationsController extends Controller
      * @param  \Illuminate\Http\Request\PresentationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PresentationRequest $request)
-    {
+    public function store(PresentationRequest $request){
         $presentation = new Presentation($request->all());
         $presentation = $this->setOwner($presentation);
 
@@ -78,8 +75,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         $presentation = Presentation::findOrFail($id);
         return $this->prepare_form($presentation, 'edit');
     }
@@ -91,8 +87,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function submit($id)
-    {
+    public function submit($id){
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
@@ -112,8 +107,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PresentationRequest $request, $id)
-    {
+    public function update(PresentationRequest $request, $id){
         $presentation = Presentation::findOrFail($id);
 
         $this->authorize('modify', $presentation);
@@ -134,8 +128,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
@@ -145,8 +138,25 @@ class PresentationsController extends Controller
         return redirect()->route('user.show', Auth::user());
     }
 
-    private function prepare_form($presentation, $action)
-    {
+    public function approve($id){
+        $presentation = Presentation::findOrFail($id);
+        $presentation->approved=true;
+        $presentation->save();
+        flash()->success("This presentations has been approved");
+
+      return redirect()->route('presentations');
+    }
+
+    public function decline($id){
+        $presentation = Presentations::findOrFail($id);
+        $presentation->submitted==false;
+        $presentation->declined==true;
+        $presentation->save();
+
+      return redirect()->route('presentations');
+    }
+
+    private function prepare_form($presentation, $action){
         $user = Auth::user();
         
         if(Auth::user()->is_professor())
@@ -170,31 +180,6 @@ class PresentationsController extends Controller
         }
         $presentation->owner = $user->id;
         return $presentation;
-    }
-
-    public function approve($id){
-      $presentation = Presentation::findOrFail($id);
-      $presentation->approved=true;
-      $presentation->save();
-      flash()->success("This presentations has been approved");
-
-      return redirect()->route('presentations');
-    }
-
-    public function decline($id){
-      $presentation = Presentations::findOrFail($id);
-      $presentation->submitted==false;
-      $presentation->declined==true;
-      $presentation->save();
-
-      return redirect()->route('presentations');
-    }
-
-    public function review($id){
-      $presentation = Presentation::findOrFail($id);
-
-      $presentation->save();
-      return view('Presentations.edit')->with('presentation', $presentation);
     }
 
 }
