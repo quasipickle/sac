@@ -33,4 +33,8 @@ class Presentation extends Model
     public function owner(){
         return $this->belongsTo("App\User", "owner");
     }
+
+    public function status(){
+        return $this->hasOne("App\Status", "status");
+    }
 }
