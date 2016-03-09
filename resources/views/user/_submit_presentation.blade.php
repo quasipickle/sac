@@ -1,4 +1,4 @@
- <form action="{{ route('submit_presentation', $id) }}" method="POST">
+ <form action="{{ route('presentation.submit', $id) }}" method="POST">
 	{{ csrf_field() }}
 	{{ method_field('PATCH') }}
 

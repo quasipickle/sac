@@ -21,7 +21,7 @@ class PresentationsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['only' => ['index', 'approve_presentations']]);
+        $this->middleware('admin', ['only' => ['index', 'approve', 'decline']]);
     }
 
     /**
@@ -172,7 +172,7 @@ class PresentationsController extends Controller
         return $presentation;
     }
 
-    public function approve_presentation($id){
+    public function approve($id){
       $presentation = Presentation::findOrFail($id);
       $presentation->approved=true;
       $presentation->save();
@@ -181,7 +181,7 @@ class PresentationsController extends Controller
       return redirect()->route('presentations');
     }
 
-    public function decline_presentation($id){
+    public function decline($id){
       $presentation = Presentations::findOrFail($id);
       $presentation->submitted==false;
       $presentation->declined==true;
@@ -190,7 +190,7 @@ class PresentationsController extends Controller
       return redirect()->route('presentations');
     }
 
-    public function review_presentation($id){
+    public function review($id){
       $presentation = Presentation::findOrFail($id);
 
       $presentation->save();

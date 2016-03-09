@@ -25,7 +25,7 @@
 			</td>
 			<td class="text-center">
 				@unless($p['submitted'])
-					@include('user._submit_presentation', ['id' => $p['id']])
+					@include('user._presentation.submit', ['id' => $p['id']])
 				@endif
 			</td>
 			<td class="text-center">
