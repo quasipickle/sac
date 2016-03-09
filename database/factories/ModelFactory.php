@@ -37,13 +37,17 @@ $factory->defineAs(App\User::class, 'professor', function ($faker) use ($factory
 
 $factory->defineAs(App\Presentation::class, 'student_presentation', 
         function(Faker\Generator $faker){
+    $user = App\User::find(3);
     $presentation = [
         'professor_name' => $faker->name,
+        'owner' => $user['id'],
+        'student_name' => $user['name'],
         'course_id' => 1,
         'title' => $faker->sentence,
         'type' => 1,
         'abstract' => $faker->text,
         'special_notes' => $faker->text,
+        'status' => "S",
     ];
 
     return $presentation;
