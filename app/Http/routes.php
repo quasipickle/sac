@@ -16,8 +16,6 @@ Route::group(['middleware' => 'web'], function () {
 	Route::group(['prefix' => 'admin'], function () {
 		Route::put('changeAvailability/{id}', 'RoomsController@changeAvailability')->
 			name('changeAvailability');
-		Route::get('presentations', 'PresentationsController@view_presentations_admin')
-	       ->name('presentations');
 		Route::get('approve_presentation/{id}',
 		 	'PresentationsController@approve_presentation')->
 			name('approve_presentation');

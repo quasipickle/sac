@@ -21,7 +21,7 @@ class PresentationsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin', ['only' => ['view_presentations_admin', 'approve_presentations']]);
+        $this->middleware('admin', ['only' => ['index', 'approve_presentations']]);
     }
 
     /**
@@ -31,8 +31,12 @@ class PresentationsController extends Controller
      */
     public function index()
     {
-        //TODO: Change this too
-        return view('static.home');
+        $presentations = Presentation::orderBy('updated_at','desc')->get();
+        $presentation_types = PresentationType::all()->toArray();
+        // Add one value to make the id match the position in the array
+        array_unshift($presentation_types, '');
+        return view('presentations.index',
+            compact('presentations', 'presentation_types'));
     }
 
     /**
@@ -122,7 +126,6 @@ class PresentationsController extends Controller
              ." to SAC coordinator", "Success!");
 
         return redirect()->route('user.show', Auth::user());
-
     }
 
     /**
@@ -167,11 +170,6 @@ class PresentationsController extends Controller
         }
         $presentation->owner = $user->id;
         return $presentation;
-    }
-
-    public function view_presentations_admin(){
-      $presentations = Presentation::where('approved', false)->get();
-      return view('dashboard.presentations')->with('presentations', $presentations);
     }
 
     public function approve_presentation($id){
