@@ -23,12 +23,29 @@
             {{$u->email}}
           </td>
           <td class="text-center">
-            <a href="{{ route('approve_request', $u->id) }}" 
-              class="btn btn-default"> Approve </a>
+            <form action="{{ route('role.approve', $u->id) }}" method="POST">
+              {{ csrf_field() }}
+              {{ method_field('PATCH') }}
+
+
+              <button type="submit" class="btn btn-default"
+                  aria-label="Approve Request" title="Approve Request">
+                <i class="fa fa-thumbs-up"></i>
+                Approve
+              </button>
+            </form>
           </td>
           <td class="text-center">
-            <a href="{{ route('decline_request', $u->id) }}" 
-              class="btn btn-default"> Decline </a>
+            <form action="{{ route('role.decline', $u->id) }}" method="POST">
+              {{ csrf_field() }}
+              {{ method_field('PATCH') }}
+
+              <button type="submit" class="btn btn-default"
+                  aria-label="Decline Request" title="Decline Request">
+                <i class="fa fa-thumbs-down"></i>
+                Decline
+              </button>
+            </form>
         </tr>
         @endforeach
     </table>

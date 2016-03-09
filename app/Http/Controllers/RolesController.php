@@ -17,7 +17,7 @@ class RolesController extends Controller
 
     public function index(){
         $users = User::where('requested_new_role', true)->get();
-        return view('dashboard.requests')->with('users', $users);
+        return view('roles.index')->with('users', $users);
     }
 
     public function new_role(){
@@ -33,12 +33,12 @@ class RolesController extends Controller
     public function approve($id){
         $user = User::findOrFail($id);
         $user->make_professor();
-        return modify($user, "has professor role now");
+        return $this->modify($user, "has professor role now");
     }
 
     public function decline($id){
         $user = User::findOrFail($id);
-        return modify($user, "has been denied professor role");
+        return $this->modify($user, "has been denied professor role");
     }
 
     private function modify($user, $message){
