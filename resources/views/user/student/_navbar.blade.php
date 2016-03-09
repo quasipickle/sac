@@ -1,5 +1,5 @@
 <p class="navbar-text">
-  <a href="{{ route('new_role') }}">
+  <a href="{{ route('role.new') }}">
     <span class="uofatext">
       Request Professor Role
     </span>
