@@ -26,7 +26,7 @@ class AddCommentsToPresentationsTable extends Migration
     public function down()
     {
         Schema::table('presentations', function (Blueprint $table) {
-            Schema::drop(['comments', 'declined']);
+            $table->dropColumn(['comments', 'declined']);
         });
     }
 }
