@@ -1,4 +1,4 @@
-{!! csrf_field() !!}
+{{ csrf_field() }}
 <div class="form-group">
   <label class="col-md-4 control-label">Code</label>
 

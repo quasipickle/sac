@@ -1,5 +1,5 @@
 <form action="{{ route('add_course') }}" method="POST">
-	{!! csrf_field() !!}
+	{{ csrf_field() }}
 	<div class="col-lg-11 col-md-11 col-sm-11 col-xs-9 text-center">
 		<select type="text" class="form-control" name="course_id" id="course">
 			<option value=""> Select a course </option>

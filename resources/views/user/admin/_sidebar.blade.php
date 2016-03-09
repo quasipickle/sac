@@ -5,6 +5,6 @@
         <li><a href="#">Students</a></li>
         <li><a href="{{ route('courses') }}">Courses</a></li>
         <li><a href="#">Schedule</a></li>
-        <li><a href="{!! route('requests') !!}">Approve professor requests</a></li>
+        <li><a href="{{ route('requests') }}">Approve professor requests</a></li>
     </ul>
 </nav>

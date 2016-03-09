@@ -14,18 +14,18 @@
       @foreach($presentations as $p)
       <tr class="row">
         <td class="text-center">
-          <a href="{!! route('presentation.edit', $p->id) !!}">
+          <a href="{{ route('presentation.edit', $p->id) }}">
           {{$p->title}} </a>
         </td>
         <td class="text-center">
           {{$p->student_name}}
         </td>
         <td class="text-center">
-            <a href="{!! route('approve_presentation', $p->id) !!}" 
+            <a href="{{ route('approve_presentation', $p->id) }}" 
               class="btn btn-default"> Approve </a>
         </td>
         <td class="text-center">
-          <a href="{!! route('decline_presentation', $p->id) !!}" 
+          <a href="{{ route('decline_presentation', $p->id) }}" 
             class="btn btn-default">
           Decline</a>
         </td>

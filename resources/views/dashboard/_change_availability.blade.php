@@ -1,6 +1,6 @@
 <form action="{{ route('changeAvailability', $id) }}" method="post">
-  {!! csrf_field() !!}
-  {!! method_field('PUT') !!}
+  {{ csrf_field() }}
+  {{ method_field('PUT') }}
 
   @if($room['available'])
     <button type="submit" class="btn btn-success"

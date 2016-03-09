@@ -6,7 +6,7 @@
   @include('user.professor._navbar')
 @endif
 <p class="navbar-text">
-  <a href="{!! route('presentation.create') !!}">
+  <a href="{{ route('presentation.create') }}">
     <span class="uofatext">
       <i class="fa fa-plus-square"></i>
       Presentation
@@ -19,7 +19,7 @@
 
 
 <p class="navbar-text navbar-right">
-  <a href="{!! url('/logout') !!}">
+  <a href="{{ url('/logout') }}">
     <span class="uofatext">
       <i class="fa fa-sign-out"></i>
       Log out

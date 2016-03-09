@@ -10,7 +10,7 @@
       @foreach($courses as $c)
       <tr class="row">
         <td class="text-center">
-          <a href="{!! route('room.index') !!}">
+          <a href="{{ route('room.index') }}">
           {{$c->subject_code . $c->number}} </a>
         </td>
         <td class="text-center">

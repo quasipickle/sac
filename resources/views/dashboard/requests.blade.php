@@ -23,11 +23,11 @@
             {{$u->email}}
           </td>
           <td class="text-center">
-            <a href="{!! route('approve_request', $u->id) !!}" 
+            <a href="{{ route('approve_request', $u->id) }}" 
               class="btn btn-default"> Approve </a>
           </td>
           <td class="text-center">
-            <a href="{!! route('decline_request', $u->id) !!}" 
+            <a href="{{ route('decline_request', $u->id) }}" 
               class="btn btn-default"> Decline </a>
         </tr>
         @endforeach
