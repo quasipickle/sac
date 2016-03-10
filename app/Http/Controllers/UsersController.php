@@ -30,11 +30,8 @@ class UsersController extends Controller
         $user = Auth::user();
         if($id == $user->id){
             $presentations = $user->presentations()->
-            orderBy('updated_at','desc')->get()->toArray();
-            $presentation_types = PresentationType::all()->toArray();
-            // Add one value to make the id match the position in the array
-            array_unshift($presentation_types, '');
-            return view('user.show', compact('presentations', 'presentation_types'));
+            orderBy('updated_at','desc')->get();
+            return view('user.show', compact('presentations'));
         }
         else {
             flash()->error('You are not allowed to see others profiles!');
