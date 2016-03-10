@@ -9,7 +9,7 @@
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center">Approved</th>
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
 		</tr>
-		
+
 		@foreach($presentations as $p)
 		<tr class="row">
 			<td>
@@ -22,6 +22,12 @@
 				<p>
 					{{$p['abstract']}}
 				</p>
+				@if($p['status'] == 'D')
+				<p>
+					<h4>Comments: </h4>
+					<p> {{$p['comments']}}</p>
+				</p>
+				@endif
 			</td>
 			<td class="text-center">
 				@if($p['status'] == "S" || $p['status'] == "D")
