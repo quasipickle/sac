@@ -24,8 +24,8 @@
 				</p>
 			</td>
 			<td class="text-center">
-				@unless($p['submitted'])
-					@include('user._presentation.submit', ['id' => $p['id']])
+				@if($p['status'] == "S" || $p['status'] == "D")
+					@include('user._submit_presentation', ['id' => $p['id']])
 				@endif
 			</td>
 			<td class="text-center">
@@ -35,14 +35,14 @@
 				{{ $presentation_types[$p['type']]['description'] }}
 			</td>
 			<td class="text-center">
-				@if($p['submitted'])
+				@if($p['status'] == "P")
 					<i class="fa fa-check-circle-o"></i>
 				@else
 					<i class="fa fa-circle-o"></i>
 				@endif
 			</td>
 			<td class="text-center">
-				@if($p['approved'])
+				@if($p['status'] == "A")
 					<i class="fa fa-check-circle-o"></i>
 				@else
 					<i class="fa fa-circle-o"></i>

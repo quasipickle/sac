@@ -91,8 +91,7 @@ class PresentationsController extends Controller
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
-        $presentation->submitted = true;
-        $presentation->approved = false;
+        $presentation->status = "P";
         $presentation->save();
 
         flash()->success("Presentation submitted with success!");
@@ -112,8 +111,7 @@ class PresentationsController extends Controller
 
         $this->authorize('modify', $presentation);
 
-        $presentation->submitted = false;
-        $presentation->approved = false;
+        $presentation->submitted = "S";
         $presentation->update($request->all());
 
         flash()->overlay("Don't forget to resubmit this update"
@@ -191,6 +189,7 @@ class PresentationsController extends Controller
             $presentation->professor_name = $user->name;
         }
         $presentation->owner = $user->id;
+        $presentation->status = "S";
         return $presentation;
     }
 

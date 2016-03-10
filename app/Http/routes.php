@@ -19,18 +19,25 @@ Route::group(['middleware' => 'web'], function () {
 
     });
 
-    Route::get('/new_role', 'UsersController@request_new_role')->
-        name('new_role');
     Route::resource('user', 'UsersController', ['only' => 'show']);
 
     Route::resource('room', 'RoomsController');
+    Route::group(['prefix' => 'role'], function () {
+        Route::get('requests', 'RolesController@index')->
+            name('role.index');
+        Route::patch('{id}/approve', 'RolesController@approve')->
+            name('role.approve');
+        Route::patch('{id}/decline', 'RolesController@decline')->
+            name('role.decline');
+        Route::get('{id}/new', 'RolesController@new_role')->
+            name('role.new');
+    });
 
     Route::group(['prefix' => 'admin'], function () {
         Route::put('changeAvailability/{id}', 'RoomsController@changeAvailability')->
             name('changeAvailability');
         Route::get('courses', 'AdminController@view_courses')->name('courses');
         Route::get('requests', 'AdminController@show_requests')->name('requests');
-
         Route::get('approve_request/{id}', 'AdminController@approve_request')->
             name('approve_request');
         Route::get('decline_request/{id}', 'AdminController@decline_request')->

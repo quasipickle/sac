@@ -78,15 +78,4 @@ class UsersController extends Controller
 
         return redirect(route('my_courses'));
     }
-
-    public function request_new_role(){
-        $user = Auth::user();
-        $this->authorize('request_new_role', $user);
-
-        $user->requested_new_role = true;
-        $user->save();
-        flash("Request has been sent! Wait for administratror's approval");
-        return redirect(route('user.show', $user->id));
-    }
-
 }
