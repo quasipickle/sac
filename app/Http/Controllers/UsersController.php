@@ -32,9 +32,11 @@ class UsersController extends Controller
             $presentations = $user->presentations()->
             orderBy('updated_at','desc')->get()->toArray();
             $presentation_types = PresentationType::all()->toArray();
+            $courses = \App\Course::all();
             // Add one value to make the id match the position in the array
             array_unshift($presentation_types, '');
-            return view('user.show', compact('presentations', 'presentation_types'));
+            return view('user.show', compact('presentations',
+              'presentation_types', 'courses'));
         }
         else {
             flash()->error('You are not allowed to see others profiles!');
@@ -46,8 +48,10 @@ class UsersController extends Controller
     public function my_courses(){
         $courses = \App\Course::orderBy('subject_code', 'asc')->
             orderBy('number')->get();
-        return view('user.professor.my_courses', compact('courses'));
-    }
+        $presentation_types = \App\PresentationType::all();
+        return view('user.professor.my_courses',
+          compact('courses', 'presentation_types'));
+        }
 
     public function add_course(Request $request){
         $user = Auth::user();
