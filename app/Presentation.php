@@ -27,7 +27,7 @@ class Presentation extends Model
     }
 
     public function type(){
-        return $this->hasOne("App\PresentationType", "type");
+        return $this->belongsTo("App\PresentationType", "type");
     }
 
     public function owner(){
@@ -35,6 +35,6 @@ class Presentation extends Model
     }
 
     public function status(){
-        return $this->hasOne("App\Status", "status");
+        return $this->belongsTo("App\Status", "status");
     }
 }
