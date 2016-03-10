@@ -3,6 +3,7 @@
         <li><a href="#">Schedule</a></li>
         <li><a href="{{ route('room.index') }}">Rooms</a></li>
         <li><a href="{{ route('presentation.index') }}">Presentations</a></li>
+        <li><a href="{{ route('pending_presentations')}}"> Approve Presentations </a></li>
         <li><a href="{{ route('courses') }}">Courses</a></li>
         <li><a href="{{ route('requests') }}">Change role requests</a></li>
     </ul>
