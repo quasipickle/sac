@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCommentsToPresentationsTable extends Migration
+class AddCommentsToPresentations extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,6 @@ class AddCommentsToPresentationsTable extends Migration
     {
         Schema::table('presentations', function (Blueprint $table) {
             $table->text('comments');
-            $table->boolean('declined')->default(false);
         });
     }
 
@@ -26,7 +25,7 @@ class AddCommentsToPresentationsTable extends Migration
     public function down()
     {
         Schema::table('presentations', function (Blueprint $table) {
-            $table->dropColumn(['comments', 'declined']);
+            $table->dropColumn('comments');
         });
     }
 }
