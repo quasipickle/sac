@@ -13,10 +13,10 @@ class RoomTest extends TestCase
      */
     public function testRoomsPage()
     {
-      $user = factory(App\User::class)->create();
+      $user = factory(App\User::class, 'admin')->create();
       $this->actingAs($user)->
-          visit(route('room.show'))->
+          visit(route('room.index'))->
           click('Rooms')->
-          see('Add Room');
+          see('Add New Room');
     }
 }
