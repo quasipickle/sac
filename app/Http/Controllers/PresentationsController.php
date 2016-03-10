@@ -142,7 +142,7 @@ class PresentationsController extends Controller
         $presentation->save();
         flash()->success("This presentations has been approved");
 
-      return redirect()->route('presentations');
+      return redirect()->route('pending_presentations');
     }
 
     public function decline($id){
