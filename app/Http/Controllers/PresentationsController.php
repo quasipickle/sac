@@ -20,8 +20,8 @@ class PresentationsController extends Controller
 
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('admin', 
-            ['only' => ['index', 'approve', 'decline']]);
+        $this->middleware('admin',
+            ['only' => ['index', 'approve', 'decline', 'pending']]);
     }
 
     /**
@@ -140,7 +140,7 @@ class PresentationsController extends Controller
 
     public function approve($id){
         $presentation = Presentation::findOrFail($id);
-        $presentation->approved=true;
+        $presentation->status='A';
         $presentation->save();
         flash()->success("This presentations has been approved");
 
@@ -148,22 +148,34 @@ class PresentationsController extends Controller
     }
 
     public function decline($id){
-        $presentation = Presentations::findOrFail($id);
-        $presentation->submitted==false;
-        $presentation->declined==true;
-        $presentation->save();
+        $presentation = Presentation::findOrFail($id);
 
-      return redirect()->route('presentations');
+      return view('presentations.comments')->with('presentation', $presentation);
+    }
+
+    public function save_comment($id, Request $request){
+        $comments=$request->all();
+        $presentation= Presentation::findOrFail($id);
+        $presentation->status='D';
+        $presentation->comments=$comments['comments'];
+        $presentation->save();
+        flash()->success('Your comments have being saved');
+        return redirect()->route('pending_presentations');
+    }
+
+    public function pending(){
+      $presentations = Presentation::where('status', 'P')->get();
+      return view('dashboard.presentations')->with('presentations', $presentations);
     }
 
     private function prepare_form($presentation, $action){
         $user = Auth::user();
-        
+
         if(Auth::user()->is_professor())
             $courses = $user->courses;
         else
             $courses = Course::orderBy('subject_code', 'asc')->get();
-        
+
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));

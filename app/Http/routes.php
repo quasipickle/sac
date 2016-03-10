@@ -8,12 +8,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => 'presentation'], function (){
         Route::patch('{id}/submit', 'PresentationsController@submit')->
             name('presentation.submit');
-        Route::patch('{id}/approve', 'PresentationsController@approve')->
+        Route::get('{id}/approve', 'PresentationsController@approve')->
             name('presentation.approve');
-        Route::patch('{id}/decline', 'PresentationsController@decline')->
+				Route::get('pending_presentations', 'PresentationsController@pending')->
+						name('pending_presentations');
+        Route::get('{id}/decline', 'PresentationsController@decline')->
             name('presentation.decline');
-        Route::patch('{id}/review', 'PresentationsController@review')->
-            name('presentation.review');
+						Route::post('{id}/decline', 'PresentationsController@save_comment')->
+		            name('presentation.comment');
+
     });
 
     Route::get('/new_role', 'UsersController@request_new_role')->
@@ -27,6 +30,7 @@ Route::group(['middleware' => 'web'], function () {
             name('changeAvailability');
         Route::get('courses', 'AdminController@view_courses')->name('courses');
         Route::get('requests', 'AdminController@show_requests')->name('requests');
+
         Route::get('approve_request/{id}', 'AdminController@approve_request')->
             name('approve_request');
         Route::get('decline_request/{id}', 'AdminController@decline_request')->
