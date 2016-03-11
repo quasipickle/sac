@@ -13,6 +13,9 @@
       <tr class="row">
         <th class="col-lg-1 col-md-6 col-sm-2 text-center">Name</th>
         <th class="col-lg-1 col-md-6 col-sm-2 text-center">Email address</th>
+        <th class="col-lg-1 col-md-6 col-sm-2 text-center"></th>
+        <th class="col-lg-1 col-md-6 col-sm-2 text-center"></th>
+
       </tr>
         @foreach($users as $u)
         <tr class="row">
