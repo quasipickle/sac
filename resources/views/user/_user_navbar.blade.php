@@ -2,8 +2,6 @@
   @if(Auth::User()->requested_new_role == false)
     @include('user.student._navbar')
   @endif
-@else
-  @include('user.professor._navbar')
 @endif
 <p class="navbar-text">
   <a href="{{ route('presentation.create') }}">
