@@ -8,11 +8,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => 'presentation'], function (){
         Route::patch('{id}/submit', 'PresentationsController@submit')->
             name('presentation.submit');
-        Route::get('{id}/approve', 'PresentationsController@approve')->
+        Route::patch('{id}/approve', 'PresentationsController@approve')->
             name('presentation.approve');
 				Route::get('pending_presentations', 'PresentationsController@pending')->
 						name('pending_presentations');
-        Route::get('{id}/decline', 'PresentationsController@decline')->
+        Route::patch('{id}/decline', 'PresentationsController@decline')->
             name('presentation.decline');
 						Route::post('{id}/decline', 'PresentationsController@save_comment')->
 		            name('presentation.comment');
