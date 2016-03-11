@@ -5,8 +5,7 @@
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center">OUR Nominee</th>
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center">Type</th>
-			<th class="col-lg-1 col-md-1 col-sm-1 text-center">Submitted</th>
-			<th class="col-lg-1 col-md-1 col-sm-1 text-center">Approved</th>
+			<th class="col-lg-1 col-md-1 col-sm-1 text-center">Status</th>
 			<th class="col-lg-1 col-md-1 col-sm-1 text-center"></th>
 		</tr>
 
@@ -24,8 +23,10 @@
 				</p>
 				@if($p['status'] == 'D')
 				<p>
-					<h4>Comments: </h4>
-					<p> {{$p['comments']}}</p>
+					<div class="alert alert-info" role="alert">
+						<h4>Comments: </h4>
+						<p> {{$p['comments']}}</p>
+				</div>
 				</p>
 				@endif
 			</td>
@@ -38,22 +39,21 @@
 				{{ $p['our_nominee'] ? 'Yes' : 'No' }}
 			</td>
 			<td class="text-center">
-				{{ $presentation_types[$p['type']]['description'] }}
+				{{ $p->type()->get()->first()->description}}
 			</td>
 			<td class="text-center">
-				@if($p['status'] == "P")
-					<i class="fa fa-check-circle-o"></i>
-				@else
-					<i class="fa fa-circle-o"></i>
-				@endif
-			</td>
-			<td class="text-center">
-				@if($p['status'] == "A")
-					<i class="fa fa-check-circle-o"></i>
-				@else
-					<i class="fa fa-circle-o"></i>
-				@endif
-			</td>
+				<div class="alert
+					@if($p->status == 'S')
+					alert-warning
+					@elseif($p->status == 'D')
+					alert-danger
+					@elseif($p->status == 'A')
+					alert-success
+					@else
+					alert-info
+					@endif">
+				{{$p->status()->get()->first()->description}}
+<div></td>
 			<td class="text-center">
 				@include('user._delete_presentation', ['id' => $p['id']])
 			</td>
