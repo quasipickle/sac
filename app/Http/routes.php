@@ -10,13 +10,12 @@ Route::group(['middleware' => 'web'], function () {
             name('presentation.submit');
         Route::patch('{id}/approve', 'PresentationsController@approve')->
             name('presentation.approve');
-				Route::get('pending_presentations', 'PresentationsController@pending')->
-						name('pending_presentations');
+        Route::get('pending', 'PresentationsController@pending')->
+            name('presentation.pending');
         Route::patch('{id}/decline', 'PresentationsController@decline')->
             name('presentation.decline');
-						Route::post('{id}/decline', 'PresentationsController@save_comment')->
-		            name('presentation.comment');
-
+        Route::post('{id}/decline', 'PresentationsController@save_comment')->
+            name('presentation.comment');
     });
 
     Route::resource('user', 'UsersController', ['only' => 'show']);
@@ -36,14 +35,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::put('changeAvailability/{id}', 'RoomsController@changeAvailability')->
             name('changeAvailability');
-        Route::get('courses', 'AdminController@view_courses')->name('courses');
-        Route::get('requests', 'AdminController@show_requests')->name('requests');
-        Route::get('approve_request/{id}', 'AdminController@approve_request')->
-            name('approve_request');
-        Route::get('decline_request/{id}', 'AdminController@decline_request')->
-            name('decline_request');
-        // Route::get('presentations', 'AdminController@view_presentations')
-        //  ->name('presentations');
         Route::get('courses', 'AdminController@view_courses')->name('courses');
     });
 

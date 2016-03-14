@@ -18,7 +18,7 @@ class AdminController extends Controller
 
     public function view_courses(){
       $courses = Course::all();
-      return view('dashboard.courses')->with('courses', $courses);
+      return view('courses.index')->with('courses', $courses);
     }
 
 }

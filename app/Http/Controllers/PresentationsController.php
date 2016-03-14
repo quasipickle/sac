@@ -142,13 +142,12 @@ class PresentationsController extends Controller
         $presentation->save();
         flash()->success("This presentations has been approved");
 
-      return redirect()->route('pending_presentations');
+      return redirect()->route('presentation.pending');
     }
 
     public function decline($id){
         $presentation = Presentation::findOrFail($id);
-
-      return view('presentations.comments')->with('presentation', $presentation);
+        return view('presentations.comments')->with('presentation', $presentation);
     }
 
     public function save_comment($id, Request $request){
@@ -158,12 +157,12 @@ class PresentationsController extends Controller
         $presentation->comments=$comments['comments'];
         $presentation->save();
         flash()->success('Your comments have being saved');
-        return redirect()->route('pending_presentations');
+        return redirect()->route('presentation.pending');
     }
 
     public function pending(){
-      $presentations = Presentation::where('status', 'P')->get();
-      return view('dashboard.presentations')->with('presentations', $presentations);
+        $presentations = Presentation::where('status', 'P')->get();
+        return view('presentations.pending')->with('presentations', $presentations);
     }
 
     private function prepare_form($presentation, $action){

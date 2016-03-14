@@ -30,7 +30,7 @@
                 {{$room->description}}
             </td>
             <td class="text-center">
-                @include('dashboard._change_availability',
+                @include('rooms._change_availability',
                     ['id' => $room['code']])
             </td>
             <td class="text-center">
