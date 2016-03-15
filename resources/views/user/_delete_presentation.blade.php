@@ -1,6 +1,6 @@
  <form action="{{ route('presentation.destroy', $id) }}" method="POST">
-	{!! csrf_field() !!}
-	{!! method_field('DELETE') !!}
+	{{ csrf_field() }}
+	{{ method_field('DELETE') }}
 
 	<button type="submit" class="btn btn-link" 
 			aria-label="Delete Presentation" title="Delete Presentation">

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                {!! csrf_field() !!}
+                {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label class="col-md-4 control-label">E-Mail Address</label>

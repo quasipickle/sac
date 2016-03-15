@@ -37,13 +37,22 @@ $factory->defineAs(App\User::class, 'professor', function ($faker) use ($factory
 
 $factory->defineAs(App\Presentation::class, 'student_presentation', 
         function(Faker\Generator $faker){
+    $user = App\User::find(3);
+    $types = [1, 2, 3, 4, 5];
+    $courses = [1, 2, 3];
+    $status = ["S", "P"];
+    $our_nominee = [true, false];
     $presentation = [
         'professor_name' => $faker->name,
-        'course_id' => 1,
+        'owner' => $user['id'],
+        'student_name' => $user['name'],
+        'course_id' => $courses[array_rand($courses)],
         'title' => $faker->sentence,
-        'type' => 1,
+        'type' => $types[array_rand($types)],
         'abstract' => $faker->text,
         'special_notes' => $faker->text,
+        'status' => $status[array_rand($status)],
+        'our_nominee' => $our_nominee[array_rand($our_nominee)],
     ];
 
     return $presentation;

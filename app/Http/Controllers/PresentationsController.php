@@ -18,9 +18,10 @@ use App\PresentationType;
 class PresentationsController extends Controller
 {
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
+        $this->middleware('admin',
+            ['only' => ['index', 'approve', 'decline', 'pending']]);
     }
 
     /**
@@ -28,10 +29,13 @@ class PresentationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //TODO: Change this too
-        return view('static.home');
+    public function index(){
+        $presentations = Presentation::orderBy('updated_at','desc')->get();
+        $presentation_types = PresentationType::all()->toArray();
+        // Add one value to make the id match the position in the array
+        array_unshift($presentation_types, '');
+        return view('presentations.index',
+            compact('presentations', 'presentation_types'));
     }
 
     /**
@@ -39,8 +43,7 @@ class PresentationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
@@ -56,8 +59,7 @@ class PresentationsController extends Controller
      * @param  \Illuminate\Http\Request\PresentationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PresentationRequest $request)
-    {
+    public function store(PresentationRequest $request){
         $presentation = new Presentation($request->all());
         $presentation = $this->setOwner($presentation);
 
@@ -73,8 +75,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         $presentation = Presentation::findOrFail($id);
         return $this->prepare_form($presentation, 'edit');
     }
@@ -86,13 +87,11 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function submit($id)
-    {
+    public function submit($id){
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
-        $presentation->submitted = true;
-        $presentation->approved = false;
+        $presentation->status = "P";
         $presentation->save();
 
         flash()->success("Presentation submitted with success!");
@@ -107,13 +106,12 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PresentationRequest $request, $id)
-    {
+    public function update(PresentationRequest $request, $id){
         $presentation = Presentation::findOrFail($id);
+
         $this->authorize('modify', $presentation);
 
-        $presentation->submitted = false;
-        $presentation->approved = false;
+        $presentation->submitted = "S";
         $presentation->update($request->all());
 
         flash()->overlay("Don't forget to resubmit this update"
@@ -128,8 +126,7 @@ class PresentationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $presentation = Presentation::findOrFail($id);
         $this->authorize('modify', $presentation);
 
@@ -139,12 +136,43 @@ class PresentationsController extends Controller
         return redirect()->route('user.show', Auth::user());
     }
 
-    private function prepare_form($presentation, $action)
-    {   
+    public function approve($id){
+        $presentation = Presentation::findOrFail($id);
+        $presentation->status='A';
+        $presentation->save();
+        flash()->success("This presentations has been approved");
+
+      return redirect()->route('presentation.pending');
+    }
+
+    public function decline($id){
+        $presentation = Presentation::findOrFail($id);
+        return view('presentations.comments')->with('presentation', $presentation);
+    }
+
+    public function save_comment($id, Request $request){
+        $comments=$request->all();
+        $presentation= Presentation::findOrFail($id);
+        $presentation->status='D';
+        $presentation->comments=$comments['comments'];
+        $presentation->save();
+        flash()->success('Your comments have being saved');
+        return redirect()->route('presentation.pending');
+    }
+
+    public function pending(){
+        $presentations = Presentation::where('status', 'P')->get();
+        return view('presentations.pending')->with('presentations', $presentations);
+    }
+
+    private function prepare_form($presentation, $action){
         $user = Auth::user();
-        $courses = $user->courses;
-        if(Auth::user()->is_student())
+
+        if(Auth::user()->is_professor())
+            $courses = $user->courses;
+        else
             $courses = Course::orderBy('subject_code', 'asc')->get();
+
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
@@ -160,6 +188,8 @@ class PresentationsController extends Controller
             $presentation->professor_name = $user->name;
         }
         $presentation->owner = $user->id;
+        $presentation->status = "S";
         return $presentation;
     }
+
 }

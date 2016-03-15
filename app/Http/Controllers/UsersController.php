@@ -29,16 +29,12 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($id == $user->id){
-            if(!$user->is_student()){
-                $presentations = Presentation::all()->toArray();
-            }else{
-                $presentations = $user->presentations()->
-                    orderBy('updated_at','desc')->get()->toArray();
-            }
-            $presentation_types = PresentationType::all()->toArray();
-            array_unshift($presentation_types, ''); // Add one value to make the id match the position in the array
-            return view('user.show', compact('presentations', 'presentation_types'));
-        } else {
+            $presentations = $user->presentations()->
+            orderBy('updated_at','desc')->get();
+            return view('user.show', compact('presentations'));
+
+        }
+        else {
             flash()->error('You are not allowed to see others profiles!');
             return redirect(route('user.show', $user->id));
         }
@@ -48,8 +44,10 @@ class UsersController extends Controller
     public function my_courses(){
         $courses = \App\Course::orderBy('subject_code', 'asc')->
             orderBy('number')->get();
-        return view('user.professor.my_courses', compact('courses'));
-    }
+        $presentation_types = \App\PresentationType::all();
+        return view('user.professor.my_courses',
+          compact('courses', 'presentation_types'));
+        }
 
     public function add_course(Request $request){
         $user = Auth::user();
@@ -80,15 +78,4 @@ class UsersController extends Controller
 
         return redirect(route('my_courses'));
     }
-
-    public function request_new_role(){
-        $user = Auth::user();
-        $this->authorize('request_new_role', $user);
-
-        $user->requested_new_role = true;
-        $user->save();
-        flash("Request has been sent! Wait for administratror's approval");
-        return redirect(route('user.show', $user->id));
-    }
-
 }

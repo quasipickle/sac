@@ -1,4 +1,4 @@
-{!! csrf_field() !!}
+{{ csrf_field() }}
 <div class="form-group{{ $errors->has('professor_name') ? ' has-error' : '' }}">
 	<label class="col-md-3 control-label">Professor Name</label>
 
