@@ -43,14 +43,6 @@ class UsersController extends Controller
 
     }
 
-    public function my_courses(){
-        $courses = \App\Course::orderBy('subject_code', 'asc')->
-            orderBy('number')->get();
-        $presentation_types = \App\PresentationType::all();
-        return view('user.professor.my_courses',
-          compact('courses', 'presentation_types'));
-        }
-
     public function add_course(Request $request){
         $user = Auth::user();
         $this->authorize('add_course', $user);
