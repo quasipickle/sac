@@ -31,7 +31,9 @@ class UsersController extends Controller
         if($id == $user->id){
             $presentations = $user->presentations()->
             orderBy('updated_at','desc')->get();
-            return view('user.show', compact('presentations'));
+            $courses = \App\Course::orderBy('subject_code', 'asc')->
+                orderBy('number')->get();
+            return view('user.show', compact('presentations', 'courses'));
 
         }
         else {
@@ -61,7 +63,7 @@ class UsersController extends Controller
             flash()->error('You already have this course');
         }
 
-        return redirect(route('my_courses'));
+        return redirect(route('user.show', $user->id));
     }
 
     public function remove_course($id){
