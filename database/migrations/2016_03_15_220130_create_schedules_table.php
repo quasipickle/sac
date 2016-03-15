@@ -18,9 +18,9 @@ class CreateSchedulesTable extends Migration
             $table->string('time', 3);
             $table->integer('presentation_id')->unsigned();
 
-            $table->foreignKey('presentation_id')->
+            $table->foreign('presentation_id')->
                 references('id')->on('presentations');
-            $table->foreignKey('room_code')->
+            $table->foreign('room_code')->
                 references('code')->on('rooms');
             $table->primary(['room_code', 'day', 'time']);
         });
