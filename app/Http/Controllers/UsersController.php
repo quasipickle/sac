@@ -70,6 +70,6 @@ class UsersController extends Controller
             flash()->error("You don't have this course");
         }
 
-        return redirect(route('my_courses'));
+        return redirect(route('user.show', $user->id));
     }
 }

@@ -9,7 +9,9 @@
 	<div class="row">
 		@include('user.professor._add_course')
 	</div>
+	<br>
+	<div class="row">
 	@include('user.professor._show_courses')
-
+	</div>
 </div>
 @stop
