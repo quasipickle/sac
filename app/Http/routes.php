@@ -3,6 +3,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'StaticPagesController@home')->name('home');
     Route::auth();
 
+    Route::get('test', 'UsersController@test');
+
     Route::resource('presentation', 'PresentationsController',
         ['except' => 'show']);
     Route::group(['prefix' => 'presentation'], function (){

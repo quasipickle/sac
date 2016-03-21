@@ -72,4 +72,8 @@ class UsersController extends Controller
 
         return redirect(route('user.show', $user->id));
     }
+
+    public function test(){
+      return view('user.test');
+    }
 }
