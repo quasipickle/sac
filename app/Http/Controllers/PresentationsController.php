@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use DB;
 
 use App\Http\Requests\PresentationRequest;
 
@@ -45,7 +46,6 @@ class PresentationsController extends Controller
         $presentation = new Presentation();
         $presentation->type = -1;
         $presentation->course = null;
-        $presentation = $this->setOwner($presentation);
         return $this->prepare_form($presentation, 'create');
     }
 
@@ -58,12 +58,30 @@ class PresentationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PresentationRequest $request){
-        $presentation = new Presentation($request->all());
-        $presentation = $this->setOwner($presentation);
+        $fields = $request->all();
+        $students = $fields['student_name'];
+        unset($fields['student_name']);
+        print_r($students);
+        $user = Auth::user();
 
-        $presentation->save();
+        $presentation = new Presentation($fields);
+        $presentation->owner = $user->id;
+
+        if($user->is_professor()){
+            $presentation->professor_name = $user->name;
+        }
+
+        $presentation->status = "S";
+        if($presentation->save()){
+            foreach ($students as $student) {
+                DB::table('presentation_students')->insert(
+                    ['presentation_id' => $presentation->id,
+                    'student_name' => $student]);
+            }
+        }
+
         flash()->success("Presentation saved. Don't forget to submit it to SAC coodinator");
-        return redirect()->route('user.show', Auth::user());
+        return redirect()->route('user.show', $user);
     }
 
 
@@ -76,6 +94,27 @@ class PresentationsController extends Controller
     public function edit($id){
         $presentation = Presentation::findOrFail($id);
         return $this->prepare_form($presentation, 'edit');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request\PresentationRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(PresentationRequest $request, $id){
+        $presentation = Presentation::findOrFail($id);
+
+        $this->authorize('modify', $presentation);
+
+        $presentation->status = "S";
+        $presentation->update($request->all());
+
+        flash()->overlay("Don't forget to resubmit this update"
+             ." to SAC coordinator", "Success!");
+
+        return redirect()->route('user.show', Auth::user());
     }
 
     /**
@@ -97,26 +136,6 @@ class PresentationsController extends Controller
         return redirect()->route('user.show', Auth::user());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request\PresentationRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PresentationRequest $request, $id){
-        $presentation = Presentation::findOrFail($id);
-
-        $this->authorize('modify', $presentation);
-
-        $presentation->submitted = "S";
-        $presentation->update($request->all());
-
-        flash()->overlay("Don't forget to resubmit this update"
-             ." to SAC coordinator", "Success!");
-
-        return redirect()->route('user.show', Auth::user());
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -149,10 +168,10 @@ class PresentationsController extends Controller
     }
 
     public function save_comment($id, Request $request){
-        $comments=$request->all();
-        $presentation= Presentation::findOrFail($id);
-        $presentation->status='D';
-        $presentation->comments=$comments['comments'];
+        $comments = $request->all();
+        $presentation = Presentation::findOrFail($id);
+        $presentation->status = 'D';
+        $presentation->comments = $comments['comments'];
         $presentation->save();
         flash()->success('Your comments have being saved');
         return redirect()->route('presentation.pending');
@@ -171,23 +190,13 @@ class PresentationsController extends Controller
         else
             $courses = Course::orderBy('subject_code', 'asc')->get();
 
+
+        if($user->is_professor()){
+            $presentation->professor_name = $user->name;
+        }
         $presentation_types = PresentationType::all();
         return view('presentations.'.$action,
             compact('courses', 'presentation_types', 'presentation'));
-    }
-
-
-    private function setOwner($presentation){
-        $user = Auth::user();
-
-        if($user->is_student()){
-            $presentation->student_name = $user->name;
-        } else if($user->is_professor()){
-            $presentation->professor_name = $user->name;
-        }
-        $presentation->owner = $user->id;
-        $presentation->status = "S";
-        return $presentation;
     }
 
 }

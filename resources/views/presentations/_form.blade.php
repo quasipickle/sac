@@ -18,8 +18,8 @@
 <div class="form-group{{ $errors->has('student_name') ? ' has-error' : '' }}">
 	<label class="col-md-3 control-label">Student Name</label>
 
-	<div class="col-md-6">
-		<input type="text" class="form-control" name="student_name"
+	<div class="col-md-5">
+		<input type="text" class="form-control" name="student_name[]"
 			value="{{ old('student_name', $presentation['student_name']) }}"
 			{{ Auth::user()->is_student() ? 'disabled' : '' }} >
 
@@ -28,6 +28,12 @@
 				<strong>{{ $errors->first('student_name') }}</strong>
 			</span>
 		@endif
+	</div>
+
+	<div class="col-md-1 checkbox">
+		 <label>
+      <input type="checkbox"> Group
+    </label>
 	</div>
 </div>
 
