@@ -27,7 +27,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $("#group-checkbox").click(function(){
-        $(this).hide();
+        if($("#group-checkbox").is(":checked")){
+            $("#new-student").show();
+        }else{
+            $("#new-student").hide();
+        }
     });
 })
 </script>
