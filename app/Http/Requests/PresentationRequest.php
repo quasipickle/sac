@@ -35,9 +35,7 @@ class PresentationRequest extends Request
         ];
 
         $user = Auth::user();
-        if($user->is_student()){
-            unset($rules['student_name']);
-        } else if ($user->is_professor()){
+        if ($user->is_professor()){
             unset($rules['professor_name']);
         }
 
