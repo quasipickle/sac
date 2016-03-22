@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
             name('changeAvailability');
         Route::get('courses', 'AdminController@view_courses')->name('courses');
         Route::get('select_term', 'AdminController@select_term')->name('select_term');
+        Route::post('select_term', 'AdminController@set_term')->name('set_term');
     });
 
     Route::group(['prefix' => 'professor/my'], function () {
