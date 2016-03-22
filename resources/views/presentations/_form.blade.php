@@ -20,8 +20,8 @@
 
     <div class="col-md-5">
         <input type="text" class="form-control" name="student_name[]"
-            value="{{ old('student_name', $presentation['student_name']) }}"
-            {{ Auth::user()->is_student() ? 'disabled' : '' }} >
+            value="{{ Auth::user()->is_student() ? Auth::user()->name : 
+                old('student_name') }}" >
 
         @if ($errors->has('student_name'))
             <span class="help-block">
@@ -191,3 +191,27 @@
         </button>
     </div>
 </div>
+
+
+@section('scripts')
+<script type="text/javascript">
+    function addStudent(){
+        var student = $(".new-student").last().clone();
+        student.removeClass("hidden");
+        student.find("input").prop('disabled', false);
+        student.appendTo("#new-students");
+    }
+    $(document).ready(function(){
+
+        $("#group-checkbox").click(function(){
+            var checkbox = $("#group-checkbox");
+            if($("#group-checkbox").is(":checked")){
+                addStudent();
+            }else{
+                $("#new-students").empty();
+            }
+        });
+
+    });
+</script>
+@stop

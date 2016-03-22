@@ -69,14 +69,20 @@ class PresentationsController extends Controller
 
         if($user->is_professor()){
             $presentation->professor_name = $user->name;
+        } else if ($user->is_student()) {
+            array_push($students, $user->name);
         }
 
         $presentation->status = "S";
         if($presentation->save()){
             foreach ($students as $student) {
-                DB::table('presentation_students')->insert(
-                    ['presentation_id' => $presentation->id,
-                    'student_name' => $student]);
+                try{
+                    DB::table('presentation_students')->insert(
+                        ['presentation_id' => $presentation->id,
+                        'student_name' => $student]);
+                } catch(\Illuminate\Database\QueryException $e){
+                    flash()->error('This student is already registered for this presentation');
+                }
             }
         }
 
