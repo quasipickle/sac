@@ -78,4 +78,17 @@ class UsersController extends Controller
 
         return redirect(route('my_courses'));
     }
+
+    public function edit(){
+      $user = Auth::user();
+      return view('user._edit')->with('user', $user);
+    }
+
+    public function save_edit(Request $request){
+      $user = Auth::user();
+      $user->update($request->all());
+      flash()->success("Your profile has been updated");
+      return redirect()->route('home');
+
+    }
 }
