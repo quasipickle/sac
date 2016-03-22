@@ -16,6 +16,7 @@ class CreateTermsTable extends Migration
             $table->string('code', 1);
             $table->string('description');
             $table->timestamps();
+            $table->primary('code');
         });
     }
 
