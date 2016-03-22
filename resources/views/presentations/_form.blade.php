@@ -57,7 +57,7 @@
     </div>
 
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
-        <a class="btn btn-default" href="#">
+        <a class="btn btn-default" href="#" onclick="addStudent();">
             <i class="fa fa-plus"></i>
         </a>
     </div>
