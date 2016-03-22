@@ -32,6 +32,7 @@ class PresentationsController extends Controller
     public function index(){
         $presentations = Presentation::orderBy('updated_at','desc')->get();
         $presentation_types = PresentationType::all()->toArray();
+        
         // Add one value to make the id match the position in the array
         array_unshift($presentation_types, '');
         return view('presentations.index',
