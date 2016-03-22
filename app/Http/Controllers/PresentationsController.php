@@ -45,6 +45,7 @@ class PresentationsController extends Controller
      */
     public function create(){
         $presentation = new Presentation();
+        // may be problematic
         $presentation->type = -1;
         $presentation->course = null;
         $presentation = $this->setOwner($presentation);
@@ -152,6 +153,7 @@ class PresentationsController extends Controller
 
     public function save_comment($id, Request $request){
         $comments=$request->all();
+        // This should be wrapped in a try...catch
         $presentation= Presentation::findOrFail($id);
         $presentation->status='D';
         $presentation->comments=$comments['comments'];
@@ -168,6 +170,7 @@ class PresentationsController extends Controller
     private function prepare_form($presentation, $action){
         $user = Auth::user();
 
+        // extra call
         if(Auth::user()->is_professor())
             $courses = $user->courses;
         else
@@ -179,6 +182,7 @@ class PresentationsController extends Controller
     }
 
 
+    /* Problems */
     private function setOwner($presentation){
         $user = Auth::user();
 
