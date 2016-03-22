@@ -37,14 +37,17 @@
     </div>
 </div>
 
-<div id="new-student"
- class="form-group{{ $errors->has('student_name') ? ' has-error' : '' }}">
+<div id="new-students">
+
+</div>
+
+<div class="hidden form-group new-student">
     <label class="col-md-3 control-label">Student Name</label>
 
     <div class="col-md-5">
         <input type="text" class="form-control" name="student_name[]"
             value="{{ old('student_name', $presentation['student_name']) }}"
-            {{ Auth::user()->is_student() ? 'disabled' : '' }} >
+            disabled="true" >
 
         @if ($errors->has('student_name'))
             <span class="help-block">

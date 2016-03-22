@@ -27,12 +27,20 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $("#group-checkbox").click(function(){
+        var checkbox = $("#group-checkbox");
         if($("#group-checkbox").is(":checked")){
-            $("#new-student").show();
+            addStudent();
         }else{
-            $("#new-student").hide();
+            $("#new-students").empty();
         }
     });
+
+    function addStudent(){
+        var student = $(".new-student").last().clone();
+        student.removeClass("hidden");
+        student.find("input").prop('disabled', false);
+        student.appendTo("#new-students");
+    }
 })
 </script>
 @stop
