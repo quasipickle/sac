@@ -15,14 +15,17 @@ class RoomsController extends Controller
       $this->middleware('admin');
     }
 
+
     public function index(){
         $rooms = Room::all();
         return view('rooms.index')->with('rooms', $rooms);
     }
 
+
     public function create(){
         return view('rooms.create');
     }
+
 
     public function store(Request $request){
         Room::create($request->all());
@@ -36,6 +39,7 @@ class RoomsController extends Controller
         flash()->success("Room deleted!");
         return redirect(route('room.index'));
     }
+
 
     public function changeAvailability($id)
     {
