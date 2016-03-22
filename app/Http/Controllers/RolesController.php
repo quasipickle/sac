@@ -15,6 +15,7 @@ class RolesController extends Controller
         $this->middleware('admin', ['except' => 'new_role']);
     }
 
+    // Authorized()
     public function index(){
         $users = User::where('requested_new_role', true)->get();
         return view('roles.index')->with('users', $users);
