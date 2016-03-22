@@ -15,6 +15,13 @@
 <!-- Workaround to make the button appear with padding right -->
 <p class="navbar-text navbar-right"></p>
 
+<p class="navbar-text navbar-right">
+  <a href="{{ route('edit', '$user->id') }}">
+    <span class="uofatext">
+      Edit profile
+    </span>
+  </a>
+</p>
 
 <p class="navbar-text navbar-right">
   <a href="{{ url('/logout') }}">
